@@ -1,6 +1,8 @@
 
+import 'package:bonjour/Modul/Gudang/gudang_controller.dart';
 import 'package:bonjour/Modul/Login/login_controller.dart';
 import 'package:bonjour/Modul/Login/splash_view.dart';
+import 'package:bonjour/Modul/Stock/stock_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
@@ -10,6 +12,8 @@ void main() {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => LoginController()),
+        ChangeNotifierProvider(create: (context) => StockController()),
+        ChangeNotifierProvider(create: (context) => GudangController()),
       ],
       child: MainApp(),
     ),

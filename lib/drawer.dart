@@ -1,4 +1,5 @@
 import 'package:bonjour/Modul/Customer/customer_view.dart';
+import 'package:bonjour/Modul/Gudang/gudang_view.dart';
 import 'package:bonjour/Modul/Home/dashboard_view.dart';
 import 'package:bonjour/Modul/Login/login_controller.dart';
 import 'package:bonjour/Modul/Pelunasan/pelunasan_view.dart';
@@ -90,6 +91,13 @@ class MainDrawer extends StatelessWidget {
                           Get.offAll(StockView());
                         },
                       ),
+                      ListTile(
+                        leading: Icon(Icons.store),
+                        title: Text('Gudang'),
+                        onTap: () {
+                          Get.offAll(GudangView());
+                        },
+                      ),
                     ],
                   ),
                   ExpansionTile(
@@ -126,8 +134,8 @@ class MainDrawer extends StatelessWidget {
                     title: Text('Settings'),
                     children: [
                       ListTile(
-                        leading: Icon(Icons.receipt_long),
-                        title: Text('Setting1'),
+                        leading: Icon(Icons.person),
+                        title: Text('Profile'),
                         onTap: () {
                           // Get.offAll();
                         },
