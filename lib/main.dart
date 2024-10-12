@@ -1,4 +1,5 @@
 
+import 'package:bonjour/Modul/Customer/customer_controller.dart';
 import 'package:bonjour/Modul/Gudang/gudang_controller.dart';
 import 'package:bonjour/Modul/Login/login_controller.dart';
 import 'package:bonjour/Modul/Login/splash_view.dart';
@@ -14,6 +15,7 @@ void main() {
         ChangeNotifierProvider(create: (context) => LoginController()),
         ChangeNotifierProvider(create: (context) => StockController()),
         ChangeNotifierProvider(create: (context) => GudangController()),
+        ChangeNotifierProvider(create: (context) => CustomerController()),
       ],
       child: MainApp(),
     ),

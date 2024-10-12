@@ -1,8 +1,9 @@
+import 'package:bonjour/Modul/Stock/create_stock_view.dart';
 import 'package:bonjour/Modul/Stock/stock_controller.dart';
 import 'package:bonjour/data.dart';
 import 'package:bonjour/drawer.dart';
+import 'package:bonjour/floatingactbutton.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
 class StockView extends StatefulWidget {
@@ -14,6 +15,13 @@ class StockView extends StatefulWidget {
 
 class _StockViewState extends State<StockView> {
   TextEditingController _search = TextEditingController();
+
+  void createStock () {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => CreateStockView()),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -100,7 +108,7 @@ class _StockViewState extends State<StockView> {
                         ],
                       ),
                     ), 
-                    subtitle: Text('Total Stock ${stockCtrl.dataStock[index].sisaStock}',style: TextStyle(fontSize: 15),),
+                    subtitle: Text('Total Stock ${stockCtrl.dataStock[index].saldoAwal}',style: TextStyle(fontSize: 15),),
                   
                   ),
                 );
@@ -109,6 +117,7 @@ class _StockViewState extends State<StockView> {
           )
         ],
       ),
+      floatingActionButton: FloatingActBtn(action: () => createStock(), icon: Icons.add,),
     );
   }
 }

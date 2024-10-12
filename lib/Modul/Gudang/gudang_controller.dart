@@ -9,7 +9,8 @@ class GudangController with ChangeNotifier{
     for (int i = 1; i<3; i++) {
       String kode = "KodeGudang${i}";
       String nama = "Gudang ${i}";
-      dataGudang.add(Gudang(kodeGudang: kode, namaGudang: nama));
+      int aktif = 1;
+      dataGudang.add(Gudang(kodeGudang: kode, namaGudang: nama, aktif: aktif));
     }
   }
 
