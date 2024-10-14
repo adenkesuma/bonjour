@@ -1,6 +1,8 @@
+import 'package:bonjour/Modul/Gudang/create_gudang_view.dart';
 import 'package:bonjour/Modul/Gudang/gudang_controller.dart';
 import 'package:bonjour/data.dart';
 import 'package:bonjour/drawer.dart';
+import 'package:bonjour/floatingactbutton.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
@@ -14,6 +16,13 @@ class GudangView extends StatefulWidget {
 
 class _GudangViewState extends State<GudangView> {
   TextEditingController _search = TextEditingController();
+
+  void createGudang () {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => CreateGudangView()),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -99,6 +108,7 @@ class _GudangViewState extends State<GudangView> {
           )
         ],
       ),
+      floatingActionButton: FloatingActBtn(action: () => createGudang(), icon: Icons.add,),
     );
   }
 }

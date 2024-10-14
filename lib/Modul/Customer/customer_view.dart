@@ -1,6 +1,8 @@
+import 'package:bonjour/Modul/Customer/create_customer_view.dart';
 import 'package:bonjour/Modul/Customer/customer_controller.dart';
 import 'package:bonjour/data.dart';
 import 'package:bonjour/drawer.dart';
+import 'package:bonjour/floatingactbutton.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -13,6 +15,13 @@ class CustomerView extends StatefulWidget {
 
 class _CustomerViewState extends State<CustomerView> {
   TextEditingController _search = TextEditingController();
+
+  void createCustomer () {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => CreateCustomerView()),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -97,6 +106,7 @@ class _CustomerViewState extends State<CustomerView> {
           )
         ],
       ),
+      floatingActionButton: FloatingActBtn(action: () => createCustomer(), icon: Icons.add,),
     );
   }
 }
