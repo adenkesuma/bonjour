@@ -66,33 +66,33 @@ class MainDrawer extends StatelessWidget {
               child: Column(
                 children: [
                   ListTile(
-                    leading: Icon(Icons.home),
+                    leading: Icon(Icons.home, color: primaryColor),
                     title: Text('Dashboard'),
                     onTap: () {
                       Get.offAll(DashboardView());
                     },
                   ),
                   ExpansionTile(
-                    leading: Icon(Icons.menu_book),
+                    leading: Icon(Icons.menu_book, color: primaryColor),
                     childrenPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 0),
                     title: Text('Base'),
                     children: [
                       ListTile(
-                        leading: Icon(Icons.group),
+                        leading: Icon(Icons.group, color: primaryColor,),
                         title: Text('Customer'),
                         onTap: () {
                           Get.offAll(CustomerView());
                         },
                       ),
                       ListTile(
-                        leading: Icon(Icons.warehouse),
+                        leading: Icon(Icons.warehouse, color: primaryColor,),
                         title: Text('Stock'),
                         onTap: () {
                           Get.offAll(StockView());
                         },
                       ),
                       ListTile(
-                        leading: Icon(Icons.store),
+                        leading: Icon(Icons.store, color: primaryColor,),
                         title: Text('Gudang'),
                         onTap: () {
                           Get.offAll(GudangView());
@@ -101,19 +101,19 @@ class MainDrawer extends StatelessWidget {
                     ],
                   ),
                   ExpansionTile(
-                    leading: Icon(Icons.monetization_on),
+                    leading: Icon(Icons.monetization_on, color: primaryColor),
                     childrenPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 0),
                     title: Text('Transaksi'),
                     children: [
                       ListTile(
-                        leading: Icon(Icons.receipt_long),
+                        leading: Icon(Icons.receipt_long, color: primaryColor),
                         title: Text('Penjualan'),
                         onTap: () {
                           Get.offAll(PenjualanView());
                         },
                       ),
                       ListTile(
-                        leading: Icon(Icons.receipt_long),
+                        leading: Icon(Icons.receipt_long, color: primaryColor),
                         title: Text('Pembelian'),
                         onTap: () {
                           Get.offAll(PembelianView());
@@ -122,26 +122,26 @@ class MainDrawer extends StatelessWidget {
                     ],
                   ),
                   ListTile(
-                    leading: Icon(Icons.payments),
+                    leading: Icon(Icons.payments, color: primaryColor),
                     title: Text('Pelunasan'),
                     onTap: () {
                       Get.offAll(PelunasanView());
                     },
                   ),
                   ExpansionTile(
-                    leading: Icon(Icons.settings),
+                    leading: Icon(Icons.settings, color: primaryColor),
                     childrenPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 0),
                     title: Text('Settings'),
                     children: [
                       ListTile(
-                        leading: Icon(Icons.person),
+                        leading: Icon(Icons.person, color: primaryColor,),
                         title: Text('Profile'),
                         onTap: () {
                           // Get.offAll();
                         },
                       ),
                       ListTile(
-                        leading: Icon(Icons.receipt_long),
+                        leading: Icon(Icons.receipt_long, color: primaryColor,),
                         title: Text('setting2'),
                         onTap: () {
                           // Get.offAll();

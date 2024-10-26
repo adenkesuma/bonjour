@@ -16,7 +16,7 @@ class _LoginViewState extends State<LoginView> {
   final loginCtrl = Provider.of<LoginController>(context);
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(color: Color(0xFF023F90)),
+        decoration: BoxDecoration(color: primaryColor),
         child: Center(
           child: Container(
             padding: EdgeInsets.all(20),
