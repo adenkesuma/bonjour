@@ -1,5 +1,5 @@
-import 'package:bonjour/Model/customer_model.dart';
 import 'package:bonjour/Modul/Customer/create_customer_view.dart';
+import 'package:bonjour/Modul/Customer/edit_customer_view.dart';
 import 'package:bonjour/Provider/dbcust_provider.dart';
 import 'package:bonjour/data.dart';
 import 'package:bonjour/drawer.dart';
@@ -67,10 +67,33 @@ class _CustomerViewState extends State<CustomerView> {
                   child: ListTile(
                     title: Text(customer.kodeCustomer),
                     subtitle: Text(customer.namaCustomer),
-                    // leading: CircleAvatar(
-                    //   child: Text(customer.umur.toString()),
-                    // ),
-                  ),
+                    trailing: SizedBox(
+                      width: 100,
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: IconButton(
+                              onPressed: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) => EditCustomerView(customer: customer,),
+                                  ),
+                                );
+                              }, 
+                              icon: Icon(Icons.edit, color: Colors.blue,)
+                            ),
+                          ),
+                          Expanded(
+                            child: IconButton(
+                              onPressed: () {
+                                provCust.deleteCustomer(customer.kodeCustomer);
+                              }, 
+                              icon: Icon(Icons.delete, color: Colors.red,)
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),                   ),
                 );
               },
             ),
