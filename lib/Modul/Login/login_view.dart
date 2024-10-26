@@ -1,4 +1,5 @@
 import 'package:bonjour/Modul/Login/login_controller.dart';
+import 'package:bonjour/data.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -14,102 +15,118 @@ class _LoginViewState extends State<LoginView> {
   Widget build(BuildContext context) {
   final loginCtrl = Provider.of<LoginController>(context);
     return Scaffold(
-      body: Center(
-        child: Container(
-          padding: EdgeInsets.all(20),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text('Login',style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),),
-              SizedBox(height: 30,),
-              Container(
-                width: 350,
-                child: TextFormField(
-                  controller: loginCtrl.username,
-                  decoration: InputDecoration(
-                    errorText: loginCtrl.errname ? "Username can't empty" : null,
-                    labelText: 'Username',
-                    labelStyle: TextStyle(color: Colors.grey),
-                    hintText: 'Username',
-                    hintStyle: TextStyle(color: Colors.grey),
-                    prefixIcon: Icon(Icons.person, color: Colors.black,),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(30),
-                      borderSide: const BorderSide(width: 2,color: Colors.black),
-                    ),
-                    enabledBorder: OutlineInputBorder( // Default border when not focused
-                      borderRadius: BorderRadius.circular(30),
-                      borderSide: const BorderSide(width: 1, color: Colors.black),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(30),
-                      borderSide: const BorderSide(width: 2,color: Colors.black),
-                    ),
-                    errorBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(30),
-                      borderSide: const BorderSide(color: Color.fromARGB(255, 255, 0, 0)),
-                    ),
-                    focusedErrorBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(30),
-                      borderSide: const BorderSide(color: Color.fromARGB(255, 255, 0, 0)),
-                    ),
+      body: Container(
+        decoration: BoxDecoration(color: Color(0xFF023F90)),
+        child: Center(
+          child: Container(
+            padding: EdgeInsets.all(20),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  width: 250,
+                  height: 250,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: NetworkImage('${logoCompany}')
+                    )
                   ),
-                  style: TextStyle(color: Colors.black),
                 ),
-              ),
-              SizedBox(height: 30,),
-              Container(
-                width: 350,
-                child: TextFormField(
-                  controller: loginCtrl.password,
-                  obscureText: loginCtrl.obscure,
-                  decoration: InputDecoration(
-                    errorText: loginCtrl.errpass ? "Incorrect password. Please try again." : null,
-                    labelText: 'Password',
-                    labelStyle: TextStyle(color: Colors.grey),
-                    hintText: 'Password',
-                    hintStyle: TextStyle(color: Colors.grey),
-                    prefixIcon: Icon(Icons.lock, color: Colors.black,),
-                    suffixIcon: IconButton(
-                      onPressed: loginCtrl.onOffSecure, 
-                      icon: Icon(loginCtrl.obscure ? Icons.visibility : Icons.visibility_off, color: Colors.black,)
-                    ),  
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(30),
-                      borderSide: const BorderSide(width: 2,color: Colors.black),
+                Text('Sign in to continue',style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white,)),
+                SizedBox(height: 30,),
+                Container(
+                  width: 350,
+                  child: TextFormField(
+                    controller: loginCtrl.username,
+                    decoration: InputDecoration(
+                      errorText: loginCtrl.errname ? "Username can't empty" : null,
+                      labelText: 'Username',
+                      labelStyle: TextStyle(color: Colors.white),
+                      hintText: 'Username',
+                      hintStyle: TextStyle(color: Colors.white),
+                      prefixIcon: Icon(Icons.person, color: Colors.white, size: 20,),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15),
+                        borderSide: const BorderSide(width: 2,color: Colors.white38),
+                      ),
+                      enabledBorder: OutlineInputBorder( // Default border when not focused
+                        borderRadius: BorderRadius.circular(15),
+                        borderSide: const BorderSide(width: 1, color: Colors.white38),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15),
+                        borderSide: const BorderSide(width: 2,color: Colors.white38),
+                      ),
+                      errorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15),
+                        borderSide: const BorderSide(color: Color.fromARGB(255, 255, 0, 0)),
+                      ),
+                      focusedErrorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15),
+                        borderSide: const BorderSide(color: Color.fromARGB(255, 255, 0, 0)),
+                      ),
                     ),
-                    enabledBorder: OutlineInputBorder( // Default border when not focused
-                      borderRadius: BorderRadius.circular(30),
-                      borderSide: const BorderSide(width: 1, color: Colors.black),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(30),
-                      borderSide: const BorderSide(width: 2,color: Colors.black),
-                    ),
-                    errorBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(30),
-                      borderSide: const BorderSide(color: Color.fromARGB(255, 255, 0, 0)),
-                    ),
-                    focusedErrorBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(30),
-                      borderSide: const BorderSide(color: Color.fromARGB(255, 255, 0, 0)),
-                    ),
+                    style: TextStyle(color: Colors.white),
                   ),
-                  style: TextStyle(color: Colors.black),
                 ),
-              ),
-              SizedBox(height: 30,),
-              ElevatedButton.icon(
-                style: ElevatedButton.styleFrom(
-                  elevation: 2,
-                  backgroundColor: Colors.black,
-                  foregroundColor: Colors.white
+                SizedBox(height: 15,),
+                Container(
+                  width: 350,
+                  child: TextFormField(
+                    controller: loginCtrl.password,
+                    obscureText: loginCtrl.obscure,
+                    decoration: InputDecoration(
+                      errorText: loginCtrl.errpass ? "Incorrect password. Please try again." : null,
+                      labelText: 'Password',
+                      labelStyle: TextStyle(color: Colors.white),
+                      hintText: 'Password',
+                      hintStyle: TextStyle(color: Colors.white),
+                      prefixIcon: Icon(Icons.lock, color: Colors.white, size: 20,),
+                      suffixIcon: IconButton(
+                        onPressed: loginCtrl.onOffSecure, 
+                        icon: Icon(loginCtrl.obscure ? Icons.visibility : Icons.visibility_off, color: Colors.white, size: 20,)
+                      ),  
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15),
+                        borderSide: const BorderSide(width: 2,color: Colors.white38),
+                      ),
+                      enabledBorder: OutlineInputBorder( // Default border when not focused
+                        borderRadius: BorderRadius.circular(15),
+                        borderSide: const BorderSide(width: 1, color: Colors.white38),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15),
+                        borderSide: const BorderSide(width: 2,color: Colors.white38),
+                      ),
+                      errorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15),
+                        borderSide: const BorderSide(color: Color.fromARGB(255, 255, 0, 0)),
+                      ),
+                      focusedErrorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15),
+                        borderSide: const BorderSide(color: Color.fromARGB(255, 255, 0, 0)),
+                      ),
+                    ),
+                    style: TextStyle(color: Colors.white),
+                  ),
                 ),
-                onPressed: loginCtrl.login, 
-                icon: Icon(Icons.login), 
-                label: Text('Login')
-              )
-            ],
+                SizedBox(height: 15,),
+                SizedBox(
+                  width: 350,
+                  height: 50,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      elevation: 2,
+                      backgroundColor: Colors.white,
+                      foregroundColor: Colors.black,
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15))
+                    ),
+                    onPressed: loginCtrl.login, 
+                    child: Text('Login', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),)
+                  )
+                )
+              ],
+            ),
           ),
         ),
       ),
