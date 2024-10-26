@@ -1,5 +1,6 @@
+import 'package:bonjour/Model/customer_model.dart';
 import 'package:bonjour/Modul/Customer/create_customer_view.dart';
-import 'package:bonjour/Modul/Customer/customer_controller.dart';
+import 'package:bonjour/Provider/dbcust_provider.dart';
 import 'package:bonjour/data.dart';
 import 'package:bonjour/drawer.dart';
 import 'package:bonjour/floatingactbutton.dart';
@@ -25,7 +26,8 @@ class _CustomerViewState extends State<CustomerView> {
 
   @override
   Widget build(BuildContext context) {
-    final custCtrl = Provider.of<CustomerController>(context);
+    final provCust = Provider.of<CustomerProvider>(context);
+    // final custCtrl = Provider.of<CustomerController>(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: primaryColor,
@@ -58,47 +60,16 @@ class _CustomerViewState extends State<CustomerView> {
           ),
           Expanded(
             child: ListView.builder(
-              itemCount: custCtrl.dataCustomer.length,
+              itemCount: provCust.customerList.length,
               itemBuilder: (context, index) {
-                return Container(
-                  decoration: BoxDecoration(
-                    border: Border(
-                      // top: BorderSide(
-                      //   color: Colors.grey,
-                      //   width: 1
-                      // ),
-                      bottom: BorderSide(
-                        color: Colors.grey,
-                        width: 1
-                      )
-                    )
-                  ),
+                final customer = provCust.customerList[index];
+                return Card(
                   child: ListTile(
-                    title: Text('${custCtrl.dataCustomer[index].namaCustomer}'),
-                    trailing: SizedBox(
-                      width: 100,
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: IconButton(
-                              onPressed: () {
-                            
-                              }, 
-                              icon: Icon(Icons.edit, color: Colors.blue,)
-                            ),
-                          ),
-                          Expanded(
-                            child: IconButton(
-                              onPressed: () {
-                            
-                              }, 
-                              icon: Icon(Icons.delete, color: Colors.red,)
-                            ),
-                          ),
-                        ],
-                      ),
-                    ), 
-                    subtitle: Text('${custCtrl.dataCustomer[index].kodeCustomer}',style: TextStyle(fontSize: 15),),
+                    title: Text(customer.kodeCustomer),
+                    subtitle: Text(customer.namaCustomer),
+                    // leading: CircleAvatar(
+                    //   child: Text(customer.umur.toString()),
+                    // ),
                   ),
                 );
               },
