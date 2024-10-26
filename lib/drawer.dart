@@ -5,6 +5,7 @@ import 'package:bonjour/Modul/Login/login_controller.dart';
 import 'package:bonjour/Modul/Pelunasan/pelunasan_view.dart';
 import 'package:bonjour/Modul/Pembelian/pembelian_view.dart';
 import 'package:bonjour/Modul/Penjualan/penjualan_view.dart';
+import 'package:bonjour/Modul/Stock/fakestoreview.dart';
 import 'package:bonjour/Modul/Stock/stock_view.dart';
 import 'package:bonjour/data.dart';
 import 'package:flutter/cupertino.dart';
@@ -14,7 +15,6 @@ import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 class MainDrawer extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     final loginCtrl = Provider.of<LoginController>(context, listen: false);
@@ -30,13 +30,15 @@ class MainDrawer extends StatelessWidget {
               children: [
                 Container(
                   decoration: BoxDecoration(
-                    image: DecorationImage(image: NetworkImage('${logoCompany}')),
-                    borderRadius: BorderRadius.circular(100)
-                  ),
+                      image: DecorationImage(
+                          image: NetworkImage('${logoCompany}')),
+                      borderRadius: BorderRadius.circular(100)),
                   width: 100,
                   height: 100,
                 ),
-                SizedBox(width: 20,),
+                SizedBox(
+                  width: 20,
+                ),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -55,7 +57,6 @@ class MainDrawer extends StatelessWidget {
                         fontSize: 17,
                       ),
                     ),
-
                   ],
                 ),
               ],
@@ -74,25 +75,35 @@ class MainDrawer extends StatelessWidget {
                   ),
                   ExpansionTile(
                     leading: Icon(Icons.menu_book, color: primaryColor),
-                    childrenPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 0),
+                    childrenPadding:
+                        EdgeInsets.symmetric(horizontal: 15, vertical: 0),
                     title: Text('Base'),
                     children: [
                       ListTile(
-                        leading: Icon(Icons.group, color: primaryColor,),
+                        leading: Icon(
+                          Icons.group,
+                          color: primaryColor,
+                        ),
                         title: Text('Customer'),
                         onTap: () {
                           Get.offAll(CustomerView());
                         },
                       ),
                       ListTile(
-                        leading: Icon(Icons.warehouse, color: primaryColor,),
+                        leading: Icon(
+                          Icons.warehouse,
+                          color: primaryColor,
+                        ),
                         title: Text('Stock'),
                         onTap: () {
-                          Get.offAll(StockView());
+                          Get.offAll(ProductListScreen());
                         },
                       ),
                       ListTile(
-                        leading: Icon(Icons.store, color: primaryColor,),
+                        leading: Icon(
+                          Icons.store,
+                          color: primaryColor,
+                        ),
                         title: Text('Gudang'),
                         onTap: () {
                           Get.offAll(GudangView());
@@ -102,7 +113,8 @@ class MainDrawer extends StatelessWidget {
                   ),
                   ExpansionTile(
                     leading: Icon(Icons.monetization_on, color: primaryColor),
-                    childrenPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 0),
+                    childrenPadding:
+                        EdgeInsets.symmetric(horizontal: 15, vertical: 0),
                     title: Text('Transaksi'),
                     children: [
                       ListTile(
@@ -130,18 +142,25 @@ class MainDrawer extends StatelessWidget {
                   ),
                   ExpansionTile(
                     leading: Icon(Icons.settings, color: primaryColor),
-                    childrenPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 0),
+                    childrenPadding:
+                        EdgeInsets.symmetric(horizontal: 15, vertical: 0),
                     title: Text('Settings'),
                     children: [
                       ListTile(
-                        leading: Icon(Icons.person, color: primaryColor,),
+                        leading: Icon(
+                          Icons.person,
+                          color: primaryColor,
+                        ),
                         title: Text('Profile'),
                         onTap: () {
                           // Get.offAll();
                         },
                       ),
                       ListTile(
-                        leading: Icon(Icons.receipt_long, color: primaryColor,),
+                        leading: Icon(
+                          Icons.receipt_long,
+                          color: primaryColor,
+                        ),
                         title: Text('setting2'),
                         onTap: () {
                           // Get.offAll();
@@ -150,12 +169,11 @@ class MainDrawer extends StatelessWidget {
                     ],
                   ),
                   ListTile(
-                    leading: Icon(Icons.logout),
-                    title: Text('Logout'),
-                    textColor: Colors.red,
-                    iconColor: Colors.red,
-                    onTap: loginCtrl.logout
-                  ),
+                      leading: Icon(Icons.logout),
+                      title: Text('Logout'),
+                      textColor: Colors.red,
+                      iconColor: Colors.red,
+                      onTap: loginCtrl.logout),
                 ],
               ),
             ),
