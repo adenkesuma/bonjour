@@ -35,78 +35,69 @@ class _GudangViewState extends State<GudangView> {
         centerTitle: true,
       ),
       drawer: MainDrawer(),
-      body: Column(
-        children: [
-          Container(
-            decoration: BoxDecoration(
-              border: Border(
-                bottom: BorderSide(
-                  color: Colors.grey,
-                  width: 1
-                )
-              )
-            ),
-            padding: EdgeInsets.all(10),
-            child: TextField(
+      body: Container(
+        padding: EdgeInsets.symmetric(horizontal: 20),
+        child: Column(
+          children: [
+            Container(
+              padding: EdgeInsets.symmetric(vertical: 15),
+              child: TextField(
                 controller: _search,
                 onChanged: (value) {},
                 decoration: InputDecoration(
                   labelText: 'Search',
-                  border: OutlineInputBorder(),
+                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
                   prefixIcon: Icon(Icons.search),
                 ),
               ),
-          ),
-          Expanded(
-            child: ListView.builder(
-              itemCount: gudangCtrl.dataGudang.length,
-              itemBuilder: (context, index) {
-                return Container(
-                  decoration: BoxDecoration(
-                    border: Border(
-                      // top: BorderSide(
-                      //   color: Colors.grey,
-                      //   width: 1
-                      // ),
-                      bottom: BorderSide(
-                        color: Colors.grey,
-                        width: 1
-                      )
-                    )
-                  ),
-                  child: ListTile(
-                    title: Text('${gudangCtrl.dataGudang[index].namaGudang}'),
-                    trailing: SizedBox(
-                      width: 100,
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: IconButton(
-                              onPressed: () {
-                            
-                              }, 
-                              icon: Icon(Icons.edit, color: Colors.blue,)
-                            ),
-                          ),
-                          Expanded(
-                            child: IconButton(
-                              onPressed: () {
-                            
-                              }, 
-                              icon: Icon(Icons.delete, color: Colors.red,)
-                            ),
-                          ),
-                        ],
-                      ),
-                    ), 
-                    subtitle: Text('${gudangCtrl.dataGudang[index].kodeGudang}',style: TextStyle(fontSize: 15),),
-                  
-                  ),
-                );
-              },
             ),
-          )
-        ],
+            Expanded(
+              child: ListView.builder(
+                itemCount: gudangCtrl.dataGudang.length,
+                itemBuilder: (context, index) {
+                  return Container(
+                    margin: EdgeInsets.only(bottom: 15),
+                    decoration: BoxDecoration(
+                      color: Color.fromARGB(31, 172, 169, 169),
+                      borderRadius: BorderRadius.circular(15)
+                    ),
+                    child: ListTile(
+                      title: Text('${gudangCtrl.dataGudang[index].namaGudang}', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),),
+                      trailing: SizedBox(
+                        width: 100,
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: IconButton(
+                                onPressed: () {
+                                }, 
+                                icon: Icon(Icons.edit, color: Colors.blue,)
+                              ),
+                            ),
+                            Expanded(
+                              child: IconButton(
+                                onPressed: () {
+                                }, 
+                                icon: Icon(Icons.delete, color: Colors.red,)
+                              ),
+                            ),
+                          ],
+                        ),
+                      ), 
+                      subtitle: Text(
+                        '${gudangCtrl.dataGudang[index].kodeGudang}',
+                        style: TextStyle(
+                          fontSize: 12, 
+                          fontWeight: FontWeight.w500
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              ),
+            )
+          ],
+        ),
       ),
       floatingActionButton: FloatingActBtn(action: () => createGudang(), icon: Icons.add,),
     );
