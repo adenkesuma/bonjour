@@ -29,93 +29,81 @@ class _StockViewState extends State<StockView> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: primaryColor,
-        title: Text('Stock'),
+        title: Text('Stock Product'),
         foregroundColor: Colors.white,
         centerTitle: true,
       ),
       drawer: MainDrawer(),
-      body: Column(
-        children: [
-          Container(
-            decoration: BoxDecoration(
-              border: Border(
-                bottom: BorderSide(
-                  color: Colors.grey,
-                  width: 1
-                )
-              )
-            ),
-            padding: EdgeInsets.all(10),
-            child: TextField(
-                controller: _search,
-                onChanged: (value) {},
-                decoration: InputDecoration(
-                  labelText: 'Search',
-                  border: OutlineInputBorder(),
-                  prefixIcon: Icon(Icons.search),
-                ),
-              ),
-          ),
-          Expanded(
-            child: ListView.builder(
-              itemCount: stockCtrl.dataStock.length,
-              itemBuilder: (context, index) {
-                return Container(
-                  decoration: BoxDecoration(
-                    border: Border(
-                      // top: BorderSide(
-                      //   color: Colors.grey,
-                      //   width: 1
-                      // ),
-                      bottom: BorderSide(
-                        color: Colors.grey,
-                        width: 1
-                      )
-                    )
+      body: Container(
+        padding: EdgeInsets.symmetric(horizontal: 20),
+        child: Column(
+          children: [
+            Container(
+              padding: EdgeInsets.symmetric(vertical: 15),
+              child: TextField(
+                  controller: _search,
+                  onChanged: (value) {},
+                  decoration: InputDecoration(
+                    labelText: 'Search',
+                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
+                    prefixIcon: Icon(Icons.search),
                   ),
-                  child: ListTile(
-                    title: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('${stockCtrl.dataStock[index].namaStock}'),
-                        Text('${stockCtrl.dataStock[index].kodeStock}',style: TextStyle(fontSize: 14, color: const Color.fromARGB(255, 131, 131, 131)),),
-                      ],
+                ),
+            ),
+            Expanded(
+              child: ListView.builder(
+                itemCount: stockCtrl.dataStock.length,
+                itemBuilder: (context, index) {
+                  return Container(
+                    margin: EdgeInsets.only(bottom: 15),
+                    decoration: BoxDecoration(
+                      color: Color.fromARGB(31, 172, 169, 169),
+                      borderRadius: BorderRadius.circular(15)
                     ),
-                    leading: CircleAvatar(
-                      radius: 30,
-                      child: Icon(Icons.image),
-                    ),
-                    trailing: SizedBox(
-                      width: 100,
-                      child: Row(
+                    child: ListTile(
+                      title: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Expanded(
-                            child: IconButton(
-                              onPressed: () {
-                            
-                              }, 
-                              icon: Icon(Icons.edit, color: Colors.blue,)
-                            ),
-                          ),
-                          Expanded(
-                            child: IconButton(
-                              onPressed: () {
-                            
-                              }, 
-                              icon: Icon(Icons.delete, color: Colors.red,)
-                            ),
-                          ),
+                          Text('${stockCtrl.dataStock[index].namaStock}', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),),
+                          Text('${stockCtrl.dataStock[index].kodeStock}',style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500, color: const Color.fromARGB(255, 131, 131, 131)),),
                         ],
                       ),
-                    ), 
-                    subtitle: Text('Total Stock ${stockCtrl.dataStock[index].saldoAwal}',style: TextStyle(fontSize: 15),),
-                  
-                  ),
-                );
-              },
-            ),
-          )
-        ],
+                      leading: CircleAvatar(
+                        radius: 30,
+                        child: Icon(Icons.image),
+                      ),
+                      trailing: SizedBox(
+                        width: 100,
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: IconButton(
+                                onPressed: () {
+                              
+                                }, 
+                                icon: Icon(Icons.edit, color: Colors.blue,)
+                              ),
+                            ),
+                            Expanded(
+                              child: IconButton(
+                                onPressed: () {
+                              
+                                }, 
+                                icon: Icon(Icons.delete, color: Colors.red,)
+                              ),
+                            ),
+                          ],
+                        ),
+                      ), 
+                      subtitle: Text('Total Stock ${stockCtrl.dataStock[index].saldoAwal}',style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),),
+                    
+                    ),
+                  );
+                },
+              ),
+            )
+          ],
+        ),
       ),
       floatingActionButton: FloatingActBtn(action: () => createStock(), icon: Icons.add,),
     );
