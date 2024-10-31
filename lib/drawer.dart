@@ -96,6 +96,16 @@ class MainDrawer extends StatelessWidget {
                         ),
                         title: Text('Stock'),
                         onTap: () {
+                          Get.offAll(StockView());
+                        },
+                      ),
+                      ListTile(
+                        leading: Icon(
+                          Icons.warehouse,
+                          color: primaryColor,
+                        ),
+                        title: Text('Product List'),
+                        onTap: () {
                           Get.offAll(ProductListScreen());
                         },
                       ),

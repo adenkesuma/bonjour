@@ -23,7 +23,9 @@ class _ProductListScreenState extends State<ProductListScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: primaryColor,
+        foregroundColor: Colors.white,
         title: Text('Product List'),
+        centerTitle: true,
       ),
       drawer: MainDrawer(),
       body: FutureBuilder<List<Product>>(
@@ -44,14 +46,14 @@ class _ProductListScreenState extends State<ProductListScreen> {
             itemBuilder: (context, index) {
               final product = products[index];
               return Card(
-                margin: EdgeInsets.all(8),
+                margin: EdgeInsets.only(bottom: 8, left: 20, right: 20, top: 8),
                 child: ListTile(
                   leading: Container(
                       width: 70,
                       height: 70,
                       child: Image.network(product.image)),
-                  title: Text(product.title),
-                  subtitle: Text('\$${product.price.toString()}'),
+                  title: Text(product.title, style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),),
+                  subtitle: Text('\$${product.price.toString()}', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: primaryColor),),
                 ),
               );
             },
