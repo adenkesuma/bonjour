@@ -7,6 +7,7 @@ import 'package:bonjour/Modul/Pembelian/pembelian_view.dart';
 import 'package:bonjour/Modul/Penjualan/penjualan_view.dart';
 import 'package:bonjour/Modul/Stock/fakestoreview.dart';
 import 'package:bonjour/Modul/Stock/stock_view.dart';
+import 'package:bonjour/analytic_helper.dart';
 import 'package:bonjour/data.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

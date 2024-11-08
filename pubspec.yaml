@@ -14,6 +14,10 @@ dependencies:
   get:
   http:
   sqflite:
+  firebase_analytics:
+  firebase_core:
+  firebase_ui_auth:
+  firebase_auth:
 
 dev_dependencies:
   flutter_test:
