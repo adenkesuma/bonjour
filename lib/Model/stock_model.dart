@@ -8,7 +8,8 @@ class Stock {
   double? hargaJual;
   double? hargaBeli;
   double? hargaMinimum;
-  int saldoAwal;
+  double saldoAwal;
+  String img;
 
   Stock({
     required this.kodeStock,
@@ -17,24 +18,26 @@ class Stock {
     required this.satuan,
     this.deskripsi,
     required this.aktif,
-    this.hargaJual,
-    this.hargaBeli,
-    this.hargaMinimum,
+    this.hargaJual = 0,
+    this.hargaBeli = 0,
+    this.hargaMinimum = 0,
     this.saldoAwal = 0,
+    this.img = '',
   });
 
   factory Stock.fromJson(Map<String, dynamic> json) {
     return Stock(
-      kodeStock: json['kodeStock'] as String,
-      namaStock: json['namaStock'] as String,
-      kodeJenisProduk: json['kodeJenisProduk'] as String,
-      satuan: json['satuan'] as String,
-      deskripsi: json['deskripsi'] as String,
-      aktif: json['aktif'] as int,
-      hargaJual: json['hargaJual'] as double?,
-      hargaBeli: json['hargaBeli'] as double?,
-      hargaMinimum: json['hargaMinimum'] as double?,
-      saldoAwal: json['saldoAwal'] as int,
+      kodeStock: json['KODE_STOCK'] as String,
+      namaStock: json['NAMA_STOCK'] as String,
+      kodeJenisProduk: json['KODE_PRODUK'] as String,
+      satuan: json['SATUAN'] as String,
+      deskripsi: json['DESKRIPSI'] as String?,
+      aktif: json['AKTIF'] as int,
+      hargaJual: (json['HARGA_JUAL'])?.toDouble() ?? 0.0,
+      hargaBeli: (json['HARGA_BELI'])?.toDouble() ?? 0.0,
+      hargaMinimum: (json['HARGA_MINIMUM'])?.toDouble() ?? 0.0,
+      saldoAwal: (json['STOCK_AWAL'])?.toDouble() ?? 0.0,
+      img: json['IMAGE'] as String? ?? "",
     );
   }
 
@@ -50,6 +53,7 @@ class Stock {
       'hargaBeli': hargaBeli,
       'hargaMinimum': hargaMinimum,
       'saldoAwal': saldoAwal,
+      'img': img,
     };
   }
 }

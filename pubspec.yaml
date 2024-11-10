@@ -18,6 +18,8 @@ dependencies:
   firebase_core:
   firebase_ui_auth:
   firebase_auth:
+  image_picker:
+  art_sweetalert:
 
 dev_dependencies:
   flutter_test:

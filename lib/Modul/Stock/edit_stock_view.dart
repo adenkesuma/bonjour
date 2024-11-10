@@ -8,14 +8,16 @@ import 'package:image_picker/image_picker.dart';
 import 'package:bonjour/data.dart';
 import 'package:provider/provider.dart';
 
-class CreateStockView extends StatefulWidget {
-  const CreateStockView({Key? key}) : super(key: key);
+class EditStockView extends StatefulWidget {
+  final Stock stock;
+
+  const EditStockView({Key? key, required this.stock});
 
   @override
-  State<CreateStockView> createState() => _CreateStockViewState();
+  State<EditStockView> createState() => _EditStockViewState();
 }
 
-class _CreateStockViewState extends State<CreateStockView> {
+class _EditStockViewState extends State<EditStockView> {
   late TextEditingController kodeStock;
   late TextEditingController namaStock;
   late TextEditingController kodeJenisProduk;
@@ -31,19 +33,21 @@ class _CreateStockViewState extends State<CreateStockView> {
   final picker = ImagePicker();
   String imgurl = defaultStockImg;
 
-
   @override
   void initState() {
     super.initState();
-    kodeStock = TextEditingController(text: '');
-    namaStock = TextEditingController(text: '');
-    kodeJenisProduk = TextEditingController(text: '');
-    satuan = TextEditingController(text: '');
-    deskripsi = TextEditingController(text: '');
-    hargaJual = TextEditingController(text: '0');
-    hargaBeli = TextEditingController(text: '0'); 
-    hargaMinimum = TextEditingController(text: '0'); 
-    saldoAwal = TextEditingController(text: '0'); 
+   
+    kodeStock = TextEditingController(text: widget.stock.kodeStock);
+    namaStock = TextEditingController(text: widget.stock.namaStock);
+    kodeJenisProduk = TextEditingController(text: widget.stock.kodeJenisProduk);
+    satuan = TextEditingController(text: widget.stock.satuan);
+    deskripsi = TextEditingController(text: widget.stock.deskripsi);
+    hargaJual = TextEditingController(text: widget.stock.hargaJual.toString());
+    hargaBeli = TextEditingController(text: widget.stock.hargaBeli.toString());
+    hargaMinimum = TextEditingController(text: widget.stock.hargaMinimum.toString());
+    saldoAwal = TextEditingController(text: widget.stock.saldoAwal.toString());
+    aktif = widget.stock.aktif;
+    imgurl = widget.stock.img;
   }
 
   @override
@@ -75,7 +79,7 @@ class _CreateStockViewState extends State<CreateStockView> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: primaryColor,
-        title: Text('Add Stock'),
+        title: Text('Edit Stock'),
         foregroundColor: Colors.white,
         centerTitle: true,
       ),
@@ -91,34 +95,54 @@ class _CreateStockViewState extends State<CreateStockView> {
                     child: GestureDetector(
                       onTap: _pickImage,
                       child: _imageFile != null
-                        ? ClipRRect(
-                            borderRadius: BorderRadius.circular(10),
-                            child: Image.file(
-                              _imageFile!,
+                          ? ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                              child: Image.file(
+                                _imageFile!,
+                                width: 150,
+                                height: 150,
+                                fit: BoxFit.cover,
+                              ),
+                            )
+                          : Image.network(
+                              linkImg+imgurl,
                               width: 150,
                               height: 150,
                               fit: BoxFit.cover,
                             ),
-                          )
-                        : Container(
-                            width: 150,
-                            height: 150,
-                            decoration: BoxDecoration(
-                              color: Colors.grey[300],
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Icon(
-                              Icons.camera_alt,
-                              color: Colors.grey[800],
-                              size: 50,
-                            ),
-                          ),
                     ),
                   ),
                   SizedBox(height: 20),
                   TextField(
-                    decoration: InputDecoration(labelText: 'Kode Stock'),
+                    decoration: InputDecoration(
+                      contentPadding: EdgeInsets.symmetric(horizontal: 10,vertical: 5),
+                      labelText: 'Kode Stock',
+                      labelStyle: TextStyle(
+                        color: Colors.grey[700],
+                        fontWeight: FontWeight.bold,
+                      ),
+                      filled: true,
+                      fillColor: Colors.grey[200],
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                        borderSide: BorderSide(
+                          color: Colors.grey[400]!,
+                          width: 1.0,
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                        borderSide: BorderSide(
+                          color: Colors.grey[500]!,
+                          width: 1.5,
+                        ),
+                      ),
+                    ),
                     controller: kodeStock,
+                    readOnly: true,
+                    style: TextStyle(
+                      color: Colors.grey[600],
+                    ),
                   ),
                   SizedBox(height: 16),
                   TextField(
@@ -190,15 +214,16 @@ class _CreateStockViewState extends State<CreateStockView> {
                           });
                           if (_imageFile != null) {
                             String valueImg = await stockCtrl.uploadImage(_imageFile);
-                            imgurl = valueImg;
-                            if (valueImg=='') {
+                            if (valueImg.isNotEmpty) {
+                              imgurl = valueImg;
+                            } else {
                               ArtSweetAlert.show(
                                 context: context,
                                 artDialogArgs: ArtDialogArgs(
                                   type: ArtSweetAlertType.warning,
                                   title: "Upload Image Failed",
                                   confirmButtonColor: Color.fromARGB(255, 3, 192, 0),
-                                )
+                                ),
                               );
                               setState(() {
                                 stockCtrl.processing = false;
@@ -206,58 +231,58 @@ class _CreateStockViewState extends State<CreateStockView> {
                               return;
                             }
                           }
-                          Stock stock = Stock(
-                            kodeStock: kodeStock.text, 
-                            namaStock: namaStock.text, 
-                            kodeJenisProduk: kodeJenisProduk.text, 
-                            satuan: satuan.text, 
+                          Stock updatedStock = Stock(
+                            kodeStock: kodeStock.text,
+                            namaStock: namaStock.text,
+                            kodeJenisProduk: kodeJenisProduk.text,
+                            satuan: satuan.text,
                             aktif: aktif,
                             deskripsi: deskripsi.text,
                             hargaBeli: double.parse(hargaBeli.text),
                             hargaJual: double.parse(hargaJual.text),
                             hargaMinimum: double.parse(hargaMinimum.text),
                             img: imgurl,
-                            saldoAwal: double.parse(saldoAwal.text)
+                            saldoAwal: double.parse(saldoAwal.text),
                           );
-                          stockCtrl.addNewStock(stock).then((value) => {
+                          stockCtrl.updateStock(widget.stock.kodeStock, updatedStock).then((value) => {
                             if (value) {
                               ArtSweetAlert.show(
                                 context: context,
                                 artDialogArgs: ArtDialogArgs(
                                   type: ArtSweetAlertType.success,
-                                  title: "Add Stock Successful",
+                                  title: "Update Stock Successful",
                                   confirmButtonColor: Color.fromARGB(255, 3, 192, 0),
                                   onConfirm: () {
                                     Get.back();
                                     Get.back();
-                                  }
-                                )
+                                  },
+                                ),
                               ),
                             }
                           });
-                        }, 
+                        },
                         icon: Icon(Icons.save),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: primaryColor,
-                          foregroundColor: Colors.white
+                          foregroundColor: Colors.white,
                         ),
                         label: Text('Save'),
                       ),
-                      SizedBox(width: 20,),
+                      SizedBox(width: 20),
                       ElevatedButton.icon(
-                        onPressed: () async {
+                        onPressed: () {
                           Get.back();
-                        }, 
+                        },
                         icon: Icon(Icons.cancel),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.red,
-                          foregroundColor: Colors.white
+                          foregroundColor: Colors.white,
                         ),
                         label: Text('Cancel'),
                       ),
-                      SizedBox(width: 20,),
+                      SizedBox(width: 20),
                     ],
-                  )
+                  ),
                 ],
               ),
             ),
@@ -265,7 +290,7 @@ class _CreateStockViewState extends State<CreateStockView> {
           if (stockCtrl.processing)
             Positioned.fill(
               child: Container(
-                color: Colors.black.withOpacity(0.4), // Dark background
+                color: Colors.black.withOpacity(0.4),
                 child: Center(
                   child: CircularProgressIndicator(),
                 ),
