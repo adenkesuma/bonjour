@@ -5,7 +5,6 @@ import 'package:bonjour/Modul/Login/login_controller.dart';
 import 'package:bonjour/Modul/Pelunasan/pelunasan_view.dart';
 import 'package:bonjour/Modul/Pembelian/pembelian_view.dart';
 import 'package:bonjour/Modul/Penjualan/penjualan_view.dart';
-import 'package:bonjour/Modul/Stock/fakestoreview.dart';
 import 'package:bonjour/Modul/Stock/stock_view.dart';
 import 'package:bonjour/analytic_helper.dart';
 import 'package:bonjour/data.dart';
@@ -16,6 +15,7 @@ import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 class MainDrawer extends StatelessWidget {
+  MyAnalyticsHelper analytic = MyAnalyticsHelper();
   @override
   Widget build(BuildContext context) {
     final loginCtrl = Provider.of<LoginController>(context, listen: false);
@@ -71,6 +71,7 @@ class MainDrawer extends StatelessWidget {
                     leading: Icon(Icons.home, color: primaryColor),
                     title: Text('Dashboard'),
                     onTap: () {
+                      analytic.navigatorEvent("Dashboard");
                       Get.offAll(DashboardView());
                     },
                   ),
@@ -87,6 +88,7 @@ class MainDrawer extends StatelessWidget {
                         ),
                         title: Text('Customer'),
                         onTap: () {
+                          analytic.navigatorEvent("customer");
                           Get.offAll(CustomerView());
                         },
                       ),
@@ -97,6 +99,7 @@ class MainDrawer extends StatelessWidget {
                         ),
                         title: Text('Stock'),
                         onTap: () {
+                          analytic.navigatorEvent("Stock");
                           Get.offAll(StockView());
                         },
                       ),
@@ -107,6 +110,7 @@ class MainDrawer extends StatelessWidget {
                         ),
                         title: Text('Gudang'),
                         onTap: () {
+                          analytic.navigatorEvent("Gudang");
                           Get.offAll(GudangView());
                         },
                       ),
@@ -122,6 +126,7 @@ class MainDrawer extends StatelessWidget {
                         leading: Icon(Icons.receipt_long, color: primaryColor),
                         title: Text('Penjualan'),
                         onTap: () {
+                          analytic.navigatorEvent("Penjualan");
                           Get.offAll(PenjualanView());
                         },
                       ),
@@ -129,6 +134,7 @@ class MainDrawer extends StatelessWidget {
                         leading: Icon(Icons.receipt_long, color: primaryColor),
                         title: Text('Pembelian'),
                         onTap: () {
+                          analytic.navigatorEvent("Pembelian");
                           Get.offAll(PembelianView());
                         },
                       ),
@@ -138,6 +144,7 @@ class MainDrawer extends StatelessWidget {
                     leading: Icon(Icons.payments, color: primaryColor),
                     title: Text('Pelunasan'),
                     onTap: () {
+                      analytic.navigatorEvent("Pelunasan");
                       Get.offAll(PelunasanView());
                     },
                   ),
@@ -154,6 +161,7 @@ class MainDrawer extends StatelessWidget {
                         ),
                         title: Text('Profile'),
                         onTap: () {
+                          analytic.navigatorEvent("Profile");
                           // Get.offAll();
                         },
                       ),
@@ -170,11 +178,15 @@ class MainDrawer extends StatelessWidget {
                     ],
                   ),
                   ListTile(
-                      leading: Icon(Icons.logout),
-                      title: Text('Logout'),
-                      textColor: Colors.red,
-                      iconColor: Colors.red,
-                      onTap: loginCtrl.logout),
+                    leading: Icon(Icons.logout),
+                    title: Text('Logout'),
+                    textColor: Colors.red,
+                    iconColor: Colors.red,
+                    onTap: () {
+                      analytic.navigatorEvent("Logout");
+                      loginCtrl.logout();
+                    }
+                  ),
                 ],
               ),
             ),
