@@ -19,6 +19,7 @@ dependencies:
   firebase_ui_auth:
   firebase_auth:
   image_picker:
+  cloud_firestore:
   art_sweetalert:
 
 dev_dependencies:
