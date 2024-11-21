@@ -14,7 +14,7 @@ class StockController with ChangeNotifier {
   List<Stock> filteredStock = [];
 
   Future<void> fetchData() async {
-    const url = "https://api-bonjour.netlify.app/.netlify/functions/server/stocks";
+    const url = "https://api-bonjour.netlify.app/.netlify/functions/server/stocks?token=${apikey}";
     try {
       final response = await http.get(Uri.parse(url));
       if (response.statusCode == 200) {
@@ -70,7 +70,7 @@ class StockController with ChangeNotifier {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: json.encode(stock.toJson()),
+        body: json.encode({...stock.toJson(),'token':apikey}),
       );
       if (response.statusCode == 201) {
         print('Stock created: ${response.body}');
@@ -97,7 +97,7 @@ class StockController with ChangeNotifier {
       final response = await http.patch(
         Uri.parse('https://api-bonjour.netlify.app/.netlify/functions/server/stocks/$kodeStock'),
         headers: {'Content-Type': 'application/json'},
-        body: json.encode(stock.toJson()),
+        body: json.encode({...stock.toJson(), "token":apikey}),
       );
 
       if (response.statusCode == 200) {
@@ -125,7 +125,7 @@ class StockController with ChangeNotifier {
     notifyListeners(); 
 
     try {
-      final response = await http.delete(Uri.parse('https://api-bonjour.netlify.app/.netlify/functions/server/stocks/${kodeStock}'));
+      final response = await http.delete(Uri.parse('https://api-bonjour.netlify.app/.netlify/functions/server/stocks/${kodeStock}'),body: {'token':apikey});
       if (response.statusCode != 200) {
         print('Fail to delete stock');
         processing = false;
