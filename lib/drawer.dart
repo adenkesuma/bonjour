@@ -1,3 +1,4 @@
+import 'package:bonjour/Model/user_model.dart';
 import 'package:bonjour/Modul/Customer/customer_view.dart';
 import 'package:bonjour/Modul/Gudang/gudang_view.dart';
 import 'package:bonjour/Modul/Home/dashboard_view.dart';
@@ -6,6 +7,7 @@ import 'package:bonjour/Modul/Pelunasan/pelunasan_view.dart';
 import 'package:bonjour/Modul/Pembelian/pembelian_view.dart';
 import 'package:bonjour/Modul/Penjualan/penjualan_view.dart';
 import 'package:bonjour/Modul/Stock/stock_view.dart';
+import 'package:bonjour/Modul/User/user_view.dart';
 import 'package:bonjour/analytic_helper.dart';
 import 'package:bonjour/data.dart';
 import 'package:flutter/cupertino.dart';
@@ -81,6 +83,7 @@ class MainDrawer extends StatelessWidget {
                         EdgeInsets.symmetric(horizontal: 15, vertical: 0),
                     title: Text('Base'),
                     children: [
+                      if (loginCtrl.user.module!.contains("CUSTOMER"))
                       ListTile(
                         leading: Icon(
                           Icons.group,
@@ -88,10 +91,23 @@ class MainDrawer extends StatelessWidget {
                         ),
                         title: Text('Customer'),
                         onTap: () {
-                          analytic.navigatorEvent("customer");
+                          analytic.navigatorEvent("Customer");
                           Get.offAll(CustomerView());
                         },
                       ),
+                      if (loginCtrl.user.module!.contains("SUPPLIER"))
+                      ListTile(
+                        leading: Icon(
+                          Icons.group,
+                          color: primaryColor,
+                        ),
+                        title: Text('Supplier'),
+                        onTap: () {
+                          analytic.navigatorEvent("Supplier");
+                          // Get.offAll(CustomerView());
+                        },
+                      ),
+                      if (loginCtrl.user.module!.contains("STOCK"))
                       ListTile(
                         leading: Icon(
                           Icons.warehouse,
@@ -103,6 +119,7 @@ class MainDrawer extends StatelessWidget {
                           Get.offAll(StockView());
                         },
                       ),
+                      if (loginCtrl.user.module!.contains("GUDANG"))
                       ListTile(
                         leading: Icon(
                           Icons.store,
@@ -122,6 +139,7 @@ class MainDrawer extends StatelessWidget {
                         EdgeInsets.symmetric(horizontal: 15, vertical: 0),
                     title: Text('Transaksi'),
                     children: [
+                      if (loginCtrl.user.module!.contains("PENJUALAN"))
                       ListTile(
                         leading: Icon(Icons.receipt_long, color: primaryColor),
                         title: Text('Penjualan'),
@@ -130,6 +148,7 @@ class MainDrawer extends StatelessWidget {
                           Get.offAll(PenjualanView());
                         },
                       ),
+                      if (loginCtrl.user.module!.contains("PEMBELIAN"))
                       ListTile(
                         leading: Icon(Icons.receipt_long, color: primaryColor),
                         title: Text('Pembelian'),
@@ -140,6 +159,7 @@ class MainDrawer extends StatelessWidget {
                       ),
                     ],
                   ),
+                  if (loginCtrl.user.module!.contains("PELUNASAN"))
                   ListTile(
                     leading: Icon(Icons.payments, color: primaryColor),
                     title: Text('Pelunasan'),
@@ -154,15 +174,16 @@ class MainDrawer extends StatelessWidget {
                         EdgeInsets.symmetric(horizontal: 15, vertical: 0),
                     title: Text('Settings'),
                     children: [
+                      if (loginCtrl.user.module!.contains("USER"))
                       ListTile(
                         leading: Icon(
                           Icons.person,
                           color: primaryColor,
                         ),
-                        title: Text('Profile'),
+                        title: Text('User'),
                         onTap: () {
-                          analytic.navigatorEvent("Profile");
-                          // Get.offAll();
+                          analytic.navigatorEvent("User");
+                          Get.offAll(UserView());
                         },
                       ),
                       ListTile(
