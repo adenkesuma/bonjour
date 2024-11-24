@@ -1,4 +1,3 @@
-
 import 'package:bonjour/Modul/Customer/customer_controller.dart';
 import 'package:bonjour/Modul/Gudang/gudang_controller.dart';
 import 'package:bonjour/Modul/Login/login_controller.dart';
@@ -12,8 +11,8 @@ import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
-    WidgetsFlutterBinding.ensureInitialized();
-    await Firebase.initializeApp();
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(
     MultiProvider(
       providers: [
