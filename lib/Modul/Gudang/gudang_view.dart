@@ -1,10 +1,13 @@
+import 'package:art_sweetalert/art_sweetalert.dart';
 import 'package:bonjour/Modul/Gudang/create_gudang_view.dart';
+import 'package:bonjour/Modul/Gudang/edit_gudang_view.dart';
 import 'package:bonjour/Modul/Gudang/gudang_controller.dart';
 import 'package:bonjour/data.dart';
 import 'package:bonjour/drawer.dart';
 import 'package:bonjour/floatingactbutton.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 class GudangView extends StatefulWidget {
@@ -17,11 +20,15 @@ class GudangView extends StatefulWidget {
 class _GudangViewState extends State<GudangView> {
   TextEditingController _search = TextEditingController();
 
+  @override
+  void initState() {
+    super.initState();
+    final gudangCtrl = Provider.of<GudangController>(context, listen: false);
+    gudangCtrl.fetchData();
+  }
+
   void createGudang () {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => CreateGudangView()),
-    );
+    Get.to(CreateGudangView());
   }
 
   @override
@@ -52,9 +59,12 @@ class _GudangViewState extends State<GudangView> {
               ),
             ),
             Expanded(
-              child: ListView.builder(
-                itemCount: gudangCtrl.dataGudang.length,
+              child: gudangCtrl.filteredGudang.isEmpty 
+              ? const Center(child: Text('Gudang Tidak Ditemukan')) 
+              : ListView.builder(
+                itemCount: gudangCtrl.filteredGudang.length,
                 itemBuilder: (context, index) {
+                  final gudang = gudangCtrl.filteredGudang[index];
                   return Container(
                     margin: EdgeInsets.only(bottom: 15),
                     decoration: BoxDecoration(
@@ -62,7 +72,7 @@ class _GudangViewState extends State<GudangView> {
                       borderRadius: BorderRadius.circular(15)
                     ),
                     child: ListTile(
-                      title: Text('${gudangCtrl.dataGudang[index].namaGudang}', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),),
+                      title: Text('${gudangCtrl.filteredGudang[index].namaGudang}', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),),
                       trailing: SizedBox(
                         width: 100,
                         child: Row(
@@ -70,6 +80,7 @@ class _GudangViewState extends State<GudangView> {
                             Expanded(
                               child: IconButton(
                                 onPressed: () {
+                                  Get.to(EditGudangView(gudang: gudang));
                                 }, 
                                 icon: Icon(Icons.edit, color: Colors.blue,)
                               ),
@@ -77,6 +88,25 @@ class _GudangViewState extends State<GudangView> {
                             Expanded(
                               child: IconButton(
                                 onPressed: () {
+                                  gudangCtrl.deleteStock(gudangCtrl.filteredGudang[index].docId!).then((value) => {
+                                    value 
+                                    ? ArtSweetAlert.show(
+                                        context: context,
+                                        artDialogArgs: ArtDialogArgs(
+                                          type: ArtSweetAlertType.success,
+                                          title: "Delete Stock Successful",
+                                          confirmButtonColor: Color.fromARGB(255, 3, 192, 0),
+                                        )
+                                      )
+                                    : ArtSweetAlert.show(
+                                        context: context,
+                                        artDialogArgs: ArtDialogArgs(
+                                          type: ArtSweetAlertType.warning,
+                                          title: "Delete Stock Failed",
+                                          confirmButtonColor: Color.fromARGB(255, 3, 192, 0),
+                                        )
+                                      )
+                                  },);
                                 }, 
                                 icon: Icon(Icons.delete, color: Colors.red,)
                               ),
@@ -85,7 +115,7 @@ class _GudangViewState extends State<GudangView> {
                         ),
                       ), 
                       subtitle: Text(
-                        '${gudangCtrl.dataGudang[index].kodeGudang}',
+                        '${gudangCtrl.filteredGudang[index].kodeGudang}',
                         style: TextStyle(
                           fontSize: 12, 
                           fontWeight: FontWeight.w500

@@ -65,7 +65,7 @@ class _StockViewState extends State<StockView> {
                 ),
                 Expanded(
                   child: stockCtrl.filteredStock.isEmpty
-                      ? const Center(child: CircularProgressIndicator())
+                      ? const Center(child: Text('Stock Tidak Ditemukan'))
                       : ListView.builder(
                           itemCount: stockCtrl.filteredStock.length,
                           itemBuilder: (context, index) {

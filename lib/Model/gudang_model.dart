@@ -3,33 +3,32 @@ class Gudang {
   String namaGudang;
   String? alamat;
   String? kepalaGudang;
-  int aktif;
+  String? docId;
 
   Gudang({
     required this.kodeGudang, 
     required this.namaGudang, 
     this.alamat, 
     this.kepalaGudang, 
-    required this.aktif, 
+    this.docId
 });
 
   factory Gudang.fromJson(Map<String, dynamic> json) {
     return Gudang(
-      kodeGudang: json['kodeGudang'] as String, 
-      namaGudang: json['namaGudang'] as String,
-      alamat: json['alamat'] as String,
-      kepalaGudang: json['kepalaGudang'] as String,
-      aktif: json['aktif'] as int,
+      kodeGudang: json['KODE_GUDANG'] as String, 
+      namaGudang: json['NAMA_GUDANG'] as String,
+      alamat: json['ALAMAT'] ?? "" as String,
+      kepalaGudang: json['KEPALA_GUDANG'] ?? "" as String,
+      docId: json['docId'] ?? "" as String
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'kodeGudang': kodeGudang,
-      'namaGudang': namaGudang,
-      'alamat': alamat,
-      'kepalaGudang': kepalaGudang,
-      'aktif': aktif,
+      'KODE_GUDANG': kodeGudang,
+      'NAMA_GUDANG': namaGudang,
+      'ALAMAT': alamat,
+      'KEPALA_GUDANG': kepalaGudang,
     };
   }
 }
