@@ -26,7 +26,7 @@ class _CreateStockViewState extends State<CreateStockView> {
   late TextEditingController hargaMinimum;
   late TextEditingController saldoAwal;
 
-  int aktif = 1;
+  bool aktif = true;
   File? _imageFile;
   final picker = ImagePicker();
   String imgurl = defaultStockImg;
@@ -146,10 +146,10 @@ class _CreateStockViewState extends State<CreateStockView> {
                       Text('Status Stock'),
                       SizedBox(width: 10),
                       Switch(
-                        value: aktif == 1,
+                        value: aktif == true,
                         onChanged: (value) {
                           setState(() {
-                            aktif = value ? 1 : 0;
+                            aktif = value ? true : false;
                           });
                         },
                       ),

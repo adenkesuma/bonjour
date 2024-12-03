@@ -1,4 +1,3 @@
-import 'package:bonjour/Model/user_model.dart';
 import 'package:bonjour/Modul/Customer/customer_view.dart';
 import 'package:bonjour/Modul/Gudang/gudang_view.dart';
 import 'package:bonjour/Modul/Home/dashboard_view.dart';

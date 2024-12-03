@@ -28,7 +28,7 @@ class _EditStockViewState extends State<EditStockView> {
   late TextEditingController hargaMinimum;
   late TextEditingController saldoAwal;
 
-  int aktif = 1;
+  bool aktif = true;
   File? _imageFile;
   final picker = ImagePicker();
   String imgurl = defaultStockImg;
@@ -47,7 +47,11 @@ class _EditStockViewState extends State<EditStockView> {
     hargaMinimum = TextEditingController(text: widget.stock.hargaMinimum.toString());
     saldoAwal = TextEditingController(text: widget.stock.saldoAwal.toString());
     aktif = widget.stock.aktif;
-    imgurl = widget.stock.img;
+    if (widget.stock.img=="") {
+      imgurl = defaultStockImg;
+    } else {
+      imgurl = widget.stock.img;
+    }
   }
 
   @override
@@ -170,10 +174,10 @@ class _EditStockViewState extends State<EditStockView> {
                       Text('Status Stock'),
                       SizedBox(width: 10),
                       Switch(
-                        value: aktif == 1,
+                        value: aktif == true,
                         onChanged: (value) {
                           setState(() {
-                            aktif = value ? 1 : 0;
+                            aktif = value ? true : false;
                           });
                         },
                       ),
@@ -243,8 +247,9 @@ class _EditStockViewState extends State<EditStockView> {
                             hargaMinimum: double.parse(hargaMinimum.text),
                             img: imgurl,
                             saldoAwal: double.parse(saldoAwal.text),
+                            docId: widget.stock.docId
                           );
-                          stockCtrl.updateStock(widget.stock.kodeStock, updatedStock).then((value) => {
+                          stockCtrl.updateStock(updatedStock).then((value) => {
                             if (value) {
                               ArtSweetAlert.show(
                                 context: context,

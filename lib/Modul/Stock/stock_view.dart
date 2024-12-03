@@ -125,7 +125,7 @@ class _StockViewState extends State<StockView> {
                                       Expanded(
                                         child: IconButton(
                                           onPressed: () {
-                                            stockCtrl.deleteStock(stockCtrl.filteredStock[index].kodeStock).then((value) => {
+                                            stockCtrl.deleteStock(stockCtrl.filteredStock[index].docId!).then((value) => {
                                               value 
                                               ? ArtSweetAlert.show(
                                                   context: context,

@@ -4,12 +4,13 @@ class Stock {
   String kodeJenisProduk;
   String satuan;
   String? deskripsi;
-  int aktif;
+  bool aktif;
   double? hargaJual;
   double? hargaBeli;
   double? hargaMinimum;
   double saldoAwal;
   String img;
+  String? docId;
 
   Stock({
     required this.kodeStock,
@@ -23,6 +24,7 @@ class Stock {
     this.hargaMinimum = 0,
     this.saldoAwal = 0,
     this.img = '',
+    this.docId
   });
 
   factory Stock.fromJson(Map<String, dynamic> json) {
@@ -32,28 +34,29 @@ class Stock {
       kodeJenisProduk: json['KODE_PRODUK'] as String,
       satuan: json['SATUAN'] as String,
       deskripsi: json['DESKRIPSI'] as String?,
-      aktif: json['AKTIF'] as int,
+      aktif: json['AKTIF'] as bool,
       hargaJual: (json['HARGA_JUAL'])?.toDouble() ?? 0.0,
       hargaBeli: (json['HARGA_BELI'])?.toDouble() ?? 0.0,
       hargaMinimum: (json['HARGA_MINIMUM'])?.toDouble() ?? 0.0,
-      saldoAwal: (json['STOCK_AWAL'])?.toDouble() ?? 0.0,
+      saldoAwal: (json['SALDO_AWAL'])?.toDouble() ?? 0.0,
       img: json['IMAGE'] as String? ?? "",
+      docId: json['docId'] ?? "" as String
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'kodeStock': kodeStock,
-      'namaStock': namaStock,
-      'kodeJenisProduk': kodeJenisProduk,
-      'satuan': satuan,
-      'deskripsi': deskripsi,
-      'aktif': aktif,
-      'hargaJual': hargaJual,
-      'hargaBeli': hargaBeli,
-      'hargaMinimum': hargaMinimum,
-      'saldoAwal': saldoAwal,
-      'img': img,
+      'KODE_STOCK': kodeStock,
+      'NAMA_STOCK': namaStock,
+      'KODE_PRODUK': kodeJenisProduk,
+      'SATUAN': satuan,
+      'DESKRIPSI': deskripsi,
+      'AKTIF': aktif,
+      'HARGA_JUAL': hargaJual,
+      'HARGA_BELI': hargaBeli,
+      'HARGA_MINIMUM': hargaMinimum,
+      'SALDO_AWAL': saldoAwal,
+      'IMG': img,
     };
   }
 }
@@ -67,7 +70,7 @@ class Product {
   final double hargaMinimum;
   final String deskripsi;
   final double hargaJual;
-  final int aktif;
+  final bool aktif;
 
   Product({
     required this.kodeStock,
