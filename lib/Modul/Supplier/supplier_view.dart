@@ -1,7 +1,7 @@
 import 'package:art_sweetalert/art_sweetalert.dart';
-import 'package:bonjour/Modul/Gudang/create_gudang_view.dart';
-import 'package:bonjour/Modul/Gudang/edit_gudang_view.dart';
-import 'package:bonjour/Modul/Gudang/gudang_controller.dart';
+import 'package:bonjour/Modul/Supplier/create_supplier_view.dart';
+import 'package:bonjour/Modul/Supplier/edit_supplier_view.dart';
+import 'package:bonjour/Modul/Supplier/supplier_controller.dart';
 import 'package:bonjour/data.dart';
 import 'package:bonjour/drawer.dart';
 import 'package:bonjour/floatingactbutton.dart';
@@ -10,34 +10,34 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
-class GudangView extends StatefulWidget {
-  const GudangView({super.key});
+class SupplierView extends StatefulWidget {
+  const SupplierView({super.key});
 
   @override
-  State<GudangView> createState() => _GudangViewState();
+  State<SupplierView> createState() => _SupplierViewState();
 }
 
-class _GudangViewState extends State<GudangView> {
+class _SupplierViewState extends State<SupplierView> {
   TextEditingController _search = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    final gudangCtrl = Provider.of<GudangController>(context, listen: false);
-    gudangCtrl.fetchData();
+    final supplierCtrl = Provider.of<SupplierController>(context, listen: false);
+    supplierCtrl.fetchData();
   }
 
-  void createGudang () {
-    Get.to(CreateGudangView());
+  void CreateSupplier () {
+    Get.to(CreateSupplierView());
   }
 
   @override
   Widget build(BuildContext context) {
-    final gudangCtrl = Provider.of<GudangController>(context);
+    final supplierCtrl = Provider.of<SupplierController>(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: primaryColor,
-        title: Text('Gudang'),
+        title: Text('Supplier'),
         foregroundColor: Colors.white,
         centerTitle: true,
       ),
@@ -51,7 +51,7 @@ class _GudangViewState extends State<GudangView> {
               child: TextField(
                 controller: _search,
                 onChanged: (value) {
-                  gudangCtrl.filterGudangs(value);
+                  supplierCtrl.filterSupplier(value);
                 },
                 decoration: InputDecoration(
                   labelText: 'Search',
@@ -61,12 +61,12 @@ class _GudangViewState extends State<GudangView> {
               ),
             ),
             Expanded(
-              child: gudangCtrl.filteredGudang.isEmpty 
-              ? const Center(child: Text('Gudang Tidak Ditemukan')) 
+              child: supplierCtrl.filteredSupplier.isEmpty 
+              ? const Center(child: Text('Supplier Tidak Ditemukan')) 
               : ListView.builder(
-                itemCount: gudangCtrl.filteredGudang.length,
+                itemCount: supplierCtrl.filteredSupplier.length,
                 itemBuilder: (context, index) {
-                  final gudang = gudangCtrl.filteredGudang[index];
+                  final supplier = supplierCtrl.filteredSupplier[index];
                   return Container(
                     margin: EdgeInsets.only(bottom: 15),
                     decoration: BoxDecoration(
@@ -74,7 +74,7 @@ class _GudangViewState extends State<GudangView> {
                       borderRadius: BorderRadius.circular(15)
                     ),
                     child: ListTile(
-                      title: Text('${gudangCtrl.filteredGudang[index].namaGudang}', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),),
+                      title: Text('${supplierCtrl.filteredSupplier[index].kodeSupplier}', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),),
                       trailing: SizedBox(
                         width: 100,
                         child: Row(
@@ -82,7 +82,7 @@ class _GudangViewState extends State<GudangView> {
                             Expanded(
                               child: IconButton(
                                 onPressed: () {
-                                  Get.to(EditGudangView(gudang: gudang));
+                                  Get.to(EditSupplierView(supplier: supplier));
                                 }, 
                                 icon: Icon(Icons.edit, color: Colors.blue,)
                               ),
@@ -90,13 +90,13 @@ class _GudangViewState extends State<GudangView> {
                             Expanded(
                               child: IconButton(
                                 onPressed: () {
-                                  gudangCtrl.deleteGudang(gudangCtrl.filteredGudang[index].docId!).then((value) => {
+                                  supplierCtrl.deleteSupplier(supplierCtrl.filteredSupplier[index].docId!).then((value) => {
                                     value 
                                     ? ArtSweetAlert.show(
                                         context: context,
                                         artDialogArgs: ArtDialogArgs(
                                           type: ArtSweetAlertType.success,
-                                          title: "Delete Stock Successful",
+                                          title: "Delete Supplier Successful",
                                           confirmButtonColor: Color.fromARGB(255, 3, 192, 0),
                                         )
                                       )
@@ -104,7 +104,7 @@ class _GudangViewState extends State<GudangView> {
                                         context: context,
                                         artDialogArgs: ArtDialogArgs(
                                           type: ArtSweetAlertType.warning,
-                                          title: "Delete Stock Failed",
+                                          title: "Delete Supplier Failed",
                                           confirmButtonColor: Color.fromARGB(255, 3, 192, 0),
                                         )
                                       )
@@ -117,7 +117,7 @@ class _GudangViewState extends State<GudangView> {
                         ),
                       ), 
                       subtitle: Text(
-                        '${gudangCtrl.filteredGudang[index].kodeGudang}',
+                        '${supplierCtrl.filteredSupplier[index].namaSupplier}',
                         style: TextStyle(
                           fontSize: 12, 
                           fontWeight: FontWeight.w500
@@ -131,7 +131,7 @@ class _GudangViewState extends State<GudangView> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActBtn(action: () => createGudang(), icon: Icons.add,),
+      floatingActionButton: FloatingActBtn(action: () => CreateSupplier(), icon: Icons.add,),
     );
   }
 }

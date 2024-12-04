@@ -1,49 +1,52 @@
 import 'package:art_sweetalert/art_sweetalert.dart';
-import 'package:bonjour/Model/gudang_model.dart';
-import 'package:bonjour/Modul/Gudang/gudang_controller.dart';
+import 'package:bonjour/Model/supplier_model.dart';
+import 'package:bonjour/Modul/Supplier/supplier_controller.dart';
 import 'package:bonjour/data.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
-class CreateGudangView extends StatefulWidget {
-  const CreateGudangView({super.key});
+class CreateSupplierView extends StatefulWidget {
+  const CreateSupplierView({super.key});
 
   @override
-  State<CreateGudangView> createState() => _CreateGudangViewState();
+  State<CreateSupplierView> createState() => _CreateSupplierViewState();
 }
 
-class _CreateGudangViewState extends State<CreateGudangView> {
+class _CreateSupplierViewState extends State<CreateSupplierView> {
 
-  late TextEditingController _kodeGudangController;
-  late TextEditingController _namaGudangController;
+  late TextEditingController _kodeSupplierController;
+  late TextEditingController _namaSupplierController;
   late TextEditingController _alamatController;
-  late TextEditingController _kepalaGudangController;
+  late TextEditingController _emailController;
+  late TextEditingController _notelpController;
 
   void initState() {
     super.initState();
-    _kodeGudangController = TextEditingController(text: '');
-    _namaGudangController = TextEditingController(text: '');
+    _kodeSupplierController = TextEditingController(text: '');
+    _namaSupplierController = TextEditingController(text: '');
     _alamatController = TextEditingController(text: '');
-    _kepalaGudangController = TextEditingController(text: '');
+    _emailController = TextEditingController(text: '');
+    _notelpController = TextEditingController(text: '');
   }
 
   @override
   void dispose() {
-    _kodeGudangController.dispose();
-    _namaGudangController.dispose();
+    _kodeSupplierController.dispose();
+    _namaSupplierController.dispose();
     _alamatController.dispose();
-    _kepalaGudangController.dispose();
+    _emailController.dispose(); 
+    _notelpController.dispose(); 
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    final gudangCtrl = Provider.of<GudangController>(context);
+    final supplierCtrl = Provider.of<SupplierController>(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: primaryColor,
-        title: Text('Add Gudang'),
+        title: Text('Add Supplier'),
         foregroundColor: Colors.white,
         centerTitle: true,
       ),
@@ -54,19 +57,17 @@ class _CreateGudangViewState extends State<CreateGudangView> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // KODE_GUDANG Input Field
                 TextField(
-                  controller: _kodeGudangController,
+                  controller: _kodeSupplierController,
                   decoration: InputDecoration(
-                    labelText: 'KODE GUDANG',
+                    labelText: 'Kode Supplier',
                   ),
                 ),
                 SizedBox(height: 10),
-                // NAMA_GUDANG Input Field
                 TextField(
-                  controller: _namaGudangController,
+                  controller: _namaSupplierController,
                   decoration: InputDecoration(
-                    labelText: 'NAMA GUDANG',
+                    labelText: 'Nama Supplier',
                   ),
                 ),
                 SizedBox(height: 10),
@@ -74,15 +75,21 @@ class _CreateGudangViewState extends State<CreateGudangView> {
                 TextField(
                   controller: _alamatController,
                   decoration: InputDecoration(
-                    labelText: 'ALAMAT',
+                    labelText: 'Alamat',
                   ),
                 ),
                 SizedBox(height: 10),
-                // KEPALA_GUDANG Input Field
                 TextField(
-                  controller: _kepalaGudangController,
+                  controller: _emailController,
                   decoration: InputDecoration(
-                    labelText: 'KEPALA GUDANG',
+                    labelText: 'Email',
+                  ),
+                ),
+                SizedBox(height: 10),
+                TextField(
+                  controller: _notelpController,
+                  decoration: InputDecoration(
+                    labelText: 'No Telp',
                   ),
                 ),
                 SizedBox(height: 20),
@@ -93,21 +100,22 @@ class _CreateGudangViewState extends State<CreateGudangView> {
                     ElevatedButton.icon(
                       onPressed: () async {
                         setState(() {
-                          gudangCtrl.processing = true;
+                          supplierCtrl.processing = true;
                         });
-                        Gudang gudang = Gudang(
-                          kodeGudang: _kodeGudangController.text,
-                          namaGudang: _namaGudangController.text,
+                        Supplier supplier = Supplier(
+                          kodeSupplier: _kodeSupplierController.text,
+                          namaSupplier: _namaSupplierController.text,
                           alamat: _alamatController.text,
-                          kepalaGudang: _kepalaGudangController.text
+                          email: _emailController.text,
+                          noTelp: _notelpController.text,
                         );
-                        gudangCtrl.addNewGudang(gudang).then((value) => {
+                        supplierCtrl.addNewSupplier(supplier).then((value) => {
                           if (value) {
                             ArtSweetAlert.show(
                               context: context,
                               artDialogArgs: ArtDialogArgs(
                                 type: ArtSweetAlertType.success,
-                                title: "Add Gudang Successful",
+                                title: "Add Supplier Successful",
                                 confirmButtonColor: Color.fromARGB(255, 3, 192, 0),
                                 onConfirm: () {
                                   Get.back();
@@ -143,7 +151,7 @@ class _CreateGudangViewState extends State<CreateGudangView> {
               ],
             ),
           ),
-          if (gudangCtrl.processing)
+          if (supplierCtrl.processing)
             Positioned.fill(
               child: Container(
                 color: Colors.black.withOpacity(0.4), // Dark background

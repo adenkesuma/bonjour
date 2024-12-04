@@ -24,24 +24,24 @@ class GudangController with ChangeNotifier{
     }
   }
 
-  void filterStocks(String query) {
+  void filterGudangs(String query) {
     if (query.isEmpty) {
       filteredGudang = List.from(dataGudang);
     } else {
-      filteredGudang = dataGudang.where((stock) {
-        return stock.namaGudang.toLowerCase().contains(query.toLowerCase()) ||
-            stock.kodeGudang.toLowerCase().contains(query.toLowerCase());
+      filteredGudang = dataGudang.where((gudang) {
+        return gudang.namaGudang.toLowerCase().contains(query.toLowerCase()) ||
+            gudang.kodeGudang.toLowerCase().contains(query.toLowerCase());
       }).toList();
     }
     notifyListeners();
   }
 
-  Future<bool> addNewStock(Gudang gudang) async {
+  Future<bool> addNewGudang(Gudang gudang) async {
     processing = true;
     notifyListeners(); 
     try {
-      Map<String, dynamic> stockdata = {...gudang.toJson()};
-      await dbgudang.add(stockdata);
+      Map<String, dynamic> gudangdata = {...gudang.toJson()};
+      await dbgudang.add(gudangdata);
       processing = false;
       await fetchData();
       notifyListeners(); 
@@ -54,7 +54,7 @@ class GudangController with ChangeNotifier{
     }
   }
 
-  Future<bool> updateStock(Gudang gudang) async {
+  Future<bool> updateGudang(Gudang gudang) async {
     processing = true;
     notifyListeners();
     try {
@@ -72,7 +72,7 @@ class GudangController with ChangeNotifier{
     }
   }
 
-  Future<bool> deleteStock(String docId) async {
+  Future<bool> deleteGudang(String docId) async {
     processing = true;
     notifyListeners(); 
     try {

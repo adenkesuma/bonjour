@@ -6,6 +6,7 @@ import 'package:bonjour/Modul/Pelunasan/pelunasan_view.dart';
 import 'package:bonjour/Modul/Pembelian/pembelian_view.dart';
 import 'package:bonjour/Modul/Penjualan/penjualan_view.dart';
 import 'package:bonjour/Modul/Stock/stock_view.dart';
+import 'package:bonjour/Modul/Supplier/supplier_view.dart';
 import 'package:bonjour/Modul/User/user_view.dart';
 import 'package:bonjour/analytic_helper.dart';
 import 'package:bonjour/data.dart';
@@ -103,7 +104,7 @@ class MainDrawer extends StatelessWidget {
                         title: Text('Supplier'),
                         onTap: () {
                           analytic.navigatorEvent("Supplier");
-                          // Get.offAll(CustomerView());
+                          Get.offAll(SupplierView());
                         },
                       ),
                       if (loginCtrl.user.module!.contains("STOCK"))
