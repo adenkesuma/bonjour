@@ -3,22 +3,24 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class Firebase_penjualan {
   final CollectionReference penjualan =
       FirebaseFirestore.instance.collection('dbpenjualan');
+  final CollectionReference pembelian =
+      FirebaseFirestore.instance.collection('dbpembelian');
 
   Future<void> addPenjualan(String customer, DateTime tanggal, String noPo,
-    String status, List<Map<String, dynamic>> items) async {
-  try {
-    await penjualan.add({
-      'customer': customer,
-      'tanggal': tanggal,
-      'no_po': noPo,
-      'status': status,
-      'item': items, // Simpan langsung seluruh list
-    });
-    print('Data berhasil ditambahkan');
-  } catch (e) {
-    print('Gagal menambahkan data: $e');
+      String status, List<Map<String, dynamic>> items) async {
+    try {
+      await penjualan.add({
+        'customer': customer,
+        'tanggal': tanggal,
+        'no_po': noPo,
+        'status': status,
+        'item': items, // Simpan langsung seluruh list
+      });
+      print('Data berhasil ditambahkan');
+    } catch (e) {
+      print('Gagal menambahkan data: $e');
+    }
   }
-}
 
   Future<List<Map<String, dynamic>>> readPenjualan() async {
     List<Map<String, dynamic>> Polist = [];
@@ -33,27 +35,35 @@ class Firebase_penjualan {
       return [];
     }
   }
-
-  Future<void> updateMhs(
-      String nama, String kelas, String nim, bool gender) async {
+  Future<void> addPembelian(String customer, DateTime tanggal, String noPo,
+      String status, List<Map<String, dynamic>> items) async {
     try {
-      await penjualan.doc(nama).update({
-        'nama': nama,
-        'kelas': kelas,
-        'nim': nim,
-        'gender': gender,
+      await pembelian.add({
+        'customer': customer,
+        'tanggal': tanggal,
+        'no_po': noPo,
+        'status': status,
+        'item': items, // Simpan langsung seluruh list
       });
+      print('Data berhasil ditambahkan');
     } catch (e) {
-      print('Error updating penjualan: $e');
+      print('Gagal menambahkan data: $e');
     }
   }
 
-  // Metode delete dengan ID dokumen spesifik
-  Future<void> deleteMhs(String docId) async {
+  Future<List<Map<String, dynamic>>> readpembelian() async {
+    List<Map<String, dynamic>> Polist = [];
     try {
-      await penjualan.doc(docId).delete();
+      QuerySnapshot data = await pembelian.get();
+      data.docs.forEach((ele) {
+        Polist.add(ele.data() as Map<String, dynamic>);
+      });
+      return Polist;
     } catch (e) {
-      print('Error deleting penjualan: $e');
+      print(e);
+      return [];
     }
   }
 }
+  
+

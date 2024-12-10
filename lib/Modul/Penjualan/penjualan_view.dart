@@ -2,7 +2,10 @@ import 'package:bonjour/Modul/Penjualan/input_penjualan.dart';
 import 'package:bonjour/data.dart';
 import 'package:bonjour/database/firebase_control.dart';
 import 'package:bonjour/drawer.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class PenjualanView extends StatefulWidget {
   const PenjualanView({super.key});
@@ -16,6 +19,11 @@ class _PenjualanViewState extends State<PenjualanView> {
   bool _isLoading = true; // Untuk menampilkan indikator loading
   String _searchQuery = '';
   List<Map<String, dynamic>> _filteredPenjualanData = [];
+
+  String formatTimestamp(Timestamp timestamp) {
+    DateTime dateTime = timestamp.toDate();
+    return DateFormat('dd/MM/yyyy').format(dateTime);
+  }
 
   Future<void> _loadPenjualanData() async {
     try {
@@ -67,9 +75,12 @@ class _PenjualanViewState extends State<PenjualanView> {
         centerTitle: true,
         actions: [
           IconButton(
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => InputPenjualan()));
+              onPressed: () async {
+                await Get.to(InputPenjualan());
+                _loadPenjualanData();
+                // await Navigator.push(context,
+                //     MaterialPageRoute(builder: (context) => InputPenjualan()));
+                // _loadPenjualanData();
               },
               icon: Icon(Icons.add))
         ],
@@ -174,6 +185,9 @@ class _PenjualanViewState extends State<PenjualanView> {
                               itemCount: _filteredPenjualanData.length,
                               itemBuilder: (context, index) {
                                 final item = _filteredPenjualanData[index];
+                                String formattedDate =
+                                    formatTimestamp(item['tanggal']);
+
                                 return Padding(
                                   padding: const EdgeInsets.only(bottom: 12.0),
                                   child: Container(
@@ -196,7 +210,7 @@ class _PenjualanViewState extends State<PenjualanView> {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Text('No. PO: ${item['no_po']}'),
-                                          Text('Tanggal: ${item['tanggal']}'),
+                                          Text('Tanggal: ${formattedDate}'),
                                           Text('Status: ${item['status']}'),
                                           Text('Customer: ${item['customer']}'),
                                           Text(

@@ -12,6 +12,8 @@ class CustomerProvider with ChangeNotifier {
 
   List<Customer> get customerList => _customerList;
 
+ 
+
   Future<void> initialize() async {
     await _CustomerDB.initialize();
     await fetchCustomer();

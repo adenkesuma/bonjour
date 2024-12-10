@@ -2,6 +2,7 @@ import 'package:bonjour/Modul/Customer/customer_controller.dart';
 import 'package:bonjour/Modul/Gudang/gudang_controller.dart';
 import 'package:bonjour/Modul/Login/login_controller.dart';
 import 'package:bonjour/Modul/Login/splash_view.dart';
+import 'package:bonjour/Modul/Penjualan/pemilihan_stock.dart';
 import 'package:bonjour/Modul/Stock/stock_controller.dart';
 import 'package:bonjour/Modul/Supplier/supplier_controller.dart';
 import 'package:bonjour/Provider/cloud_firebase.dart';
@@ -24,6 +25,7 @@ void main() async {
         ChangeNotifierProvider(create: (context) => CustomerController()),
         ChangeNotifierProvider(create: (context) => CustomerProvider()),
         ChangeNotifierProvider(create: (context) => CloudFirebase()),
+        ChangeNotifierProvider(create: (context) => TextControllerProvider()),
       ],
       child: MainApp(),
     ),

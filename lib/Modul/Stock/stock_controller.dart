@@ -28,20 +28,7 @@ class StockController with ChangeNotifier {
     } catch (e) {
       print("Error : $e");
     }
-    // const url = "https://api-bonjour.netlify.app/.netlify/functions/server/stocks?token=${apikey}";
-    // try {
-    //   final response = await http.get(Uri.parse(url));
-    //   if (response.statusCode == 200) {
-    //     List jsonData = json.decode(response.body)['stocks'];
-    //     dataStock = jsonData.map((item) => Stock.fromJson(item)).toList();
-    //     filteredStock = List.from(dataStock);
-    //     notifyListeners();
-    //   } else {
-    //     print("Failed to load data: ${response.statusCode}");
-    //   }
-    // } catch (e) {
-    //   print("Error fetching data: $e");
-    // }
+    
   }
 
   void filterStocks(String query) {

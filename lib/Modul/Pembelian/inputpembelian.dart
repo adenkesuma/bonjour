@@ -26,17 +26,17 @@ class Item {
   });
 }
 
-class InputPenjualan extends StatefulWidget {
+class Inputpembelian extends StatefulWidget {
   @override
-  State<InputPenjualan> createState() => inputPenjualan();
+  State<Inputpembelian> createState() => inputPenjualan();
 }
 
-class inputPenjualan extends State<InputPenjualan> {
+class inputPenjualan extends State<Inputpembelian> {
   Customer? selectedCustomer;
   Stock? selectedStock;
   bool isppn = false;
   DateTime? selectedDate = DateTime.now();
-  final TextEditingController noPoController = TextEditingController();
+  final TextEditingController noBeli = TextEditingController();
   final TextEditingController hargaBarangController = TextEditingController();
   final TextEditingController jumlahBarangController = TextEditingController();
   final TextEditingController namaBarangController = TextEditingController();
@@ -63,6 +63,7 @@ class inputPenjualan extends State<InputPenjualan> {
       backgroundColor: Colors.white,
       drawer: MainDrawer(),
       appBar: AppBar(
+      
         backgroundColor: primaryColor,
         foregroundColor: Colors.white,
         title: const Text('Tambah Purchase Order'),
@@ -112,12 +113,12 @@ class inputPenjualan extends State<InputPenjualan> {
               ),
               const SizedBox(height: 10),
               buildInputField(
-                label: 'No PO',
-                controller: noPoController,
-                hintText: 'Masukkan No PO',
+                label: 'No Pembelian',
+                controller: noBeli,
+                hintText: 'Masukkan No Pembelian',
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'No PO harus diisi';
+                    return 'No Pembelian harus diisi';
                   }
                   return null; // Return null if the input is valid
                 },
@@ -195,20 +196,13 @@ class inputPenjualan extends State<InputPenjualan> {
               width: 200,
               child: ElevatedButton(
                 onPressed: () {
-                  if (jumlahBarangController.text.isEmpty ||
+                  if (namaBarangController.text.isEmpty ||
+                      jumlahBarangController.text.isEmpty ||
                       hargaBarangController.text.isEmpty) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                         content: Text(
                             'Semua field harus diisi sebelum menambah item'),
-                      ),
-                    );
-                    return; // Exit if validation fails
-                  } else if (namaBarangController.text.isEmpty) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text(
-                            'Pilih sesuai dengan nama stok yang terdaftar'),
                       ),
                     );
                     return; // Exit if validation fails
@@ -274,7 +268,7 @@ class inputPenjualan extends State<InputPenjualan> {
                     Firebase_penjualan().addPenjualan(
                       selectedCustomer!.namaCustomer,
                       selectedDate!,
-                      noPoController.text,
+                      noBeli.text,
                       isppn.toString(),
                       itemData, // Tidak perlu membungkus dengan []
                     );
@@ -286,7 +280,7 @@ class inputPenjualan extends State<InputPenjualan> {
 
                     // Reset form
                     setState(() {
-                      noPoController.clear();
+                      noBeli.clear();
                       isppn = false;
                       selectedDate = null;
                       items.clear();
