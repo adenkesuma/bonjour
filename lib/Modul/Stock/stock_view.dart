@@ -1,4 +1,5 @@
 import 'package:art_sweetalert/art_sweetalert.dart';
+import 'package:bonjour/Model/stock_model.dart';
 import 'package:bonjour/Modul/Stock/create_stock_view.dart';
 import 'package:bonjour/Modul/Stock/edit_stock_view.dart';
 import 'package:bonjour/Modul/Stock/stock_controller.dart';
@@ -16,9 +17,9 @@ class StockView extends StatefulWidget {
   @override
   State<StockView> createState() => _StockViewState();
 }
-
 class _StockViewState extends State<StockView> {
   TextEditingController _search = TextEditingController();
+  final Map<String, bool> isOpenMap = {}; // Map to track the toggle state of each stock
 
   @override
   void initState() {
@@ -70,6 +71,8 @@ class _StockViewState extends State<StockView> {
                           itemCount: stockCtrl.filteredStock.length,
                           itemBuilder: (context, index) {
                             final stock = stockCtrl.filteredStock[index];
+                            final isOpen = isOpenMap[stock.docId] ?? false; // Retrieve the toggle state for this stock
+
                             return Container(
                               margin: EdgeInsets.only(bottom: 15),
                               decoration: BoxDecoration(
@@ -151,9 +154,30 @@ class _StockViewState extends State<StockView> {
                                     ],
                                   ),
                                 ),
-                                subtitle: Text(
-                                  'Total Stock ${stock.saldoAwal}',
-                                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+                                subtitle: GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      isOpenMap[stock.docId!] = !(isOpenMap[stock.docId!] ?? false);
+                                    });
+                                  },
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'Total Stock ${stock.currentstock}',
+                                        style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.blue),
+                                      ),
+                                      if (isOpen && stock.currentstock!=0)
+                                        ...stock.perloc!.entries.map((entry) {
+                                          return Text(
+                                            '${entry.key}: ${entry.value}', // Display location and its stock count
+                                            style: TextStyle(fontSize: 14),
+                                          );
+                                        }).toList(),
+                                      if (isOpen && stock.currentstock==0)
+                                        Text('Stock Empty'),
+                                    ],
+                                  ),
                                 ),
                               ),
                             );

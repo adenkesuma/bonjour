@@ -9,6 +9,7 @@ import 'package:http/http.dart' as http;
 
 class StockController with ChangeNotifier {
   final CollectionReference dbstock = FirebaseFirestore.instance.collection('dbstock');
+  final CollectionReference dbtransaction = FirebaseFirestore.instance.collection('dbtransaction');
 
   List<Stock> dataStock = [];
   bool fetching = false;
@@ -19,11 +20,37 @@ class StockController with ChangeNotifier {
   Future<void> fetchData() async {
     try {
       QuerySnapshot querySnapshot = await dbstock.get();
+      QuerySnapshot queryTrans = await dbtransaction.get();
       dataStock = querySnapshot.docs
           .map((doc) => Stock.fromJson({...doc.data() as Map<String, dynamic>, "docId": doc.id}))
           .toList();
+      int? posmin;
+      queryTrans.docs.forEach((element) {
+        if (element['type']=="SALES") {
+          posmin = -1;
+        } else if (element['type']=="PURCHASES") {
+          posmin = 1;
+        }
+         for (var stock in dataStock) {
+          if (stock.kodeStock == element['kode_stock']) {
+            // Ensure per-location map is initialized
+            stock.perloc ??= {};
+
+            // Update the stock for the specific location
+            String location = element['kode_gudang']; // Replace with the actual location key
+            stock.perloc![location] = (stock.perloc![location] ?? 0) +
+                (posmin! * (element['qty'] ?? 0));
+
+            // Recalculate currentstock as the sum of all per-location stock
+            stock.currentstock = stock.perloc!.values.fold(0, (sum, value) => sum + value);
+            break;
+          }
+        }
+      });
+      dataStock.forEach((element) {
+        element.currentstock += element.saldoAwal;
+      });
       filteredStock = List.from(dataStock);
-      print(filteredStock);
       notifyListeners();
     } catch (e) {
       print("Error : $e");

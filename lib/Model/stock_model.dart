@@ -11,6 +11,8 @@ class Stock {
   double saldoAwal;
   String img;
   String? docId;
+  double currentstock;
+  Map<String, double>? perloc;
 
   Stock({
     required this.kodeStock,
@@ -24,7 +26,9 @@ class Stock {
     this.hargaMinimum = 0,
     this.saldoAwal = 0,
     this.img = '',
-    this.docId
+    this.docId,
+    this.currentstock = 0,
+    this.perloc
   });
 
   factory Stock.fromJson(Map<String, dynamic> json) {
@@ -40,7 +44,9 @@ class Stock {
       hargaMinimum: (json['HARGA_MINIMUM'])?.toDouble() ?? 0.0,
       saldoAwal: (json['SALDO_AWAL'])?.toDouble() ?? 0.0,
       img: json['IMAGE'] as String? ?? "",
-      docId: json['docId'] ?? "" as String
+      docId: json['docId'] ?? "" as String,
+      currentstock: 0,
+      perloc: {}
     );
   }
 
