@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SupplierView extends StatefulWidget {
   const SupplierView({super.key});
@@ -37,7 +38,7 @@ class _SupplierViewState extends State<SupplierView> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: primaryColor,
-        title: Text('Supplier'),
+        title: Text(AppLocalizations.of(context)!.supplier),
         foregroundColor: Colors.white,
         centerTitle: true,
       ),

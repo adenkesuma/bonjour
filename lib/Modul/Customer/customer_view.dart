@@ -6,6 +6,8 @@ import 'package:bonjour/drawer.dart';
 import 'package:bonjour/floatingactbutton.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 class CustomerView extends StatefulWidget {
   const CustomerView({super.key});
@@ -31,7 +33,7 @@ class _CustomerViewState extends State<CustomerView> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: primaryColor,
-        title: Text('Customer'),
+        title: Text(AppLocalizations.of(context)!.customer),
         foregroundColor: Colors.white,
         centerTitle: true,
       ),

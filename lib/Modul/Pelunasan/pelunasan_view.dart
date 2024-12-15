@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PelunasanView extends StatefulWidget {
   const PelunasanView({super.key});
@@ -31,7 +32,7 @@ class _PelunasanViewState extends State<PelunasanView> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: primaryColor,
-        title: Text('Pelunasan'),
+        title: Text(AppLocalizations.of(context)!.pelunasan),
         foregroundColor: Colors.white,
         centerTitle: true,
       ),

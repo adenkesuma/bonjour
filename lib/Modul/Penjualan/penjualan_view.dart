@@ -6,6 +6,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PenjualanView extends StatefulWidget {
   const PenjualanView({super.key});
@@ -70,7 +71,7 @@ class _PenjualanViewState extends State<PenjualanView> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: primaryColor,
-        title: Text('Penjualan'),
+        title: Text(AppLocalizations.of(context)!.penjualan),
         foregroundColor: Colors.white,
         centerTitle: true,
         actions: [

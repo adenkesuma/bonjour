@@ -8,10 +8,12 @@ import 'package:bonjour/Modul/Stock/stock_controller.dart';
 import 'package:bonjour/Modul/Supplier/supplier_controller.dart';
 import 'package:bonjour/Provider/cloud_firebase.dart';
 import 'package:bonjour/Provider/dbcust_provider.dart';
+import 'package:bonjour/locale_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -28,6 +30,7 @@ void main() async {
         ChangeNotifierProvider(create: (context) => CustomerProvider()),
         ChangeNotifierProvider(create: (context) => CloudFirebase()),
         ChangeNotifierProvider(create: (context) => TextControllerProvider()),
+        ChangeNotifierProvider(create: (context) => LocaleProvider()),
       ],
       child: MainApp(),
     ),
@@ -40,6 +43,9 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      locale: Provider.of<LocaleProvider>(context).locale,
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
       debugShowCheckedModeBanner: false,
       home: SplashScreen(),
     );

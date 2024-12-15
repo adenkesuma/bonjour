@@ -1,6 +1,7 @@
 import 'package:bonjour/data.dart';
 import 'package:bonjour/drawer.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DashboardView extends StatefulWidget {
   const DashboardView({super.key});
@@ -15,7 +16,7 @@ class _HomeViewState extends State<DashboardView> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: primaryColor,
-        title: Text('Dashboard'),
+        title: Text(AppLocalizations.of(context)!.dashboard),
         foregroundColor: Colors.white,
         centerTitle: true,
       ),

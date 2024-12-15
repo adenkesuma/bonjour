@@ -6,6 +6,7 @@ import 'package:bonjour/drawer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 
 class PembelianView extends StatefulWidget {
@@ -68,7 +69,7 @@ class _PenjualanViewState extends State<PembelianView> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: primaryColor,
-        title: Text('Pembelian'),
+        title: Text(AppLocalizations.of(context)!.pembelian),
         foregroundColor: Colors.white,
         centerTitle: true,
         actions: [

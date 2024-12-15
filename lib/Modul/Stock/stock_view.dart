@@ -9,6 +9,7 @@ import 'package:bonjour/floatingactbutton.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 
 class StockView extends StatefulWidget {
@@ -39,7 +40,7 @@ class _StockViewState extends State<StockView> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: primaryColor,
-        title: Text('Stock Product'),
+        title: Text(AppLocalizations.of(context)!.stock),
         foregroundColor: Colors.white,
         centerTitle: true,
       ),
