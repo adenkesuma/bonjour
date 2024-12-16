@@ -43,7 +43,7 @@ class Stock {
       hargaBeli: (json['HARGA_BELI'])?.toDouble() ?? 0.0,
       hargaMinimum: (json['HARGA_MINIMUM'])?.toDouble() ?? 0.0,
       saldoAwal: (json['SALDO_AWAL'])?.toDouble() ?? 0.0,
-      img: json['IMAGE'] as String? ?? "",
+      img: json['IMG'] as String? ?? "",
       docId: json['docId'] ?? "" as String,
       currentstock: 0,
       perloc: {}
