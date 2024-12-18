@@ -126,6 +126,13 @@ class inputPenjualan extends State<InputPenjualan> {
                   if (value == null || value.isEmpty) {
                     return 'No PO harus diisi';
                   }
+
+                  items.map((item) {
+                    if (item.namaBarang == value) {
+                      return 'No PO sudah ada';
+                    }
+                  });
+
                   return null; // Return null if the input is valid
                 },
               ),
@@ -282,7 +289,7 @@ class inputPenjualan extends State<InputPenjualan> {
                       selectedCustomer!.namaCustomer,
                       selectedDate!,
                       noPoController.text,
-                      isppn.toString(),
+                      isppn,
                       itemData, // Tidak perlu membungkus dengan []
                     );
                     print(itemData);

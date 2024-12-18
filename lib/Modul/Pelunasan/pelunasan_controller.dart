@@ -31,17 +31,6 @@ class PelunasanController with ChangeNotifier{
     }
   }
 
-  void filterPenjualan(String query) {
-    if (query.isEmpty) {
-      filteredPenjualan = List.from(dataPenjualan);
-    } else {
-      filteredPenjualan = dataPenjualan.where((element) {
-        return element.no_po.toLowerCase().contains(query.toLowerCase()) ||
-            element.customer.toLowerCase().contains(query.toLowerCase());
-      }).toList();
-    }
-    notifyListeners();
-  }
 
   Future<bool> bayar (String idPenjualan, String no_po) async {
     processing = true;
@@ -63,6 +52,20 @@ class PelunasanController with ChangeNotifier{
       return false;
     }
   }
+
+  
+    void filterPenjualan(String query) {
+    if (query.isEmpty) {
+      filteredPenjualan = List.from(dataPenjualan);
+    } else {
+      filteredPenjualan = dataPenjualan.where((element) {
+        return element.no_po.toLowerCase().contains(query.toLowerCase()) ||
+            element.customer.toLowerCase().contains(query.toLowerCase());
+      }).toList();
+    }
+    notifyListeners();
+  }
+
 
   Future<bool> addNewGudang(Gudang gudang) async {
     processing = true;

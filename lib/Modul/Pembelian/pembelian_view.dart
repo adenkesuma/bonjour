@@ -214,31 +214,48 @@ class _PenjualanViewState extends State<PembelianView> {
                                 String formattedDate =
                                     formatTimestamp(item['Tanggal']);
 
-                                return GestureDetector(
-                                  onTap: () {
-                                    print('item: ${item['item']}');
-                                    final List<Map<String, dynamic>> items =
-                                        (item['item'] as List<dynamic>)
-                                            .map((e) =>
-                                                Map<String, dynamic>.from(e))
-                                            .toList();
-
-                                    _showItemDialog(items);
-                                  },
-                                  child: Card(
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(12.0),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text('No. PO: ${item['kodeBeli']}'),
-                                          Text(
-                                              'Tanggal: ${formatTimestamp(item['Tanggal'])}'),
-                                          Text('Status: ${item['status']}'),
-                                          Text('Supplier: ${item['Supplier']}'),
-                                          Text('Item Count: ${item['item']}'),
+                                return Padding(
+                                  padding: const EdgeInsets.all(12.0),
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      print('item: ${item['item']}');
+                                      final List<Map<String, dynamic>> items =
+                                          (item['item'] as List<dynamic>)
+                                              .map((e) =>
+                                                  Map<String, dynamic>.from(e))
+                                              .toList();
+                                      _showItemDialog(items);
+                                    },
+                                    child: Container(
+                                      width: double.infinity,
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(10),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color:
+                                                Colors.black.withOpacity(0.1),
+                                            blurRadius: 5,
+                                            offset: Offset(0, 2),
+                                          )
                                         ],
+                                      ),
+                                      child: Card(
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(12.0),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                  'No. PO: ${item['kodeBeli']}'),
+                                              Text(
+                                                  'Tanggal: ${formatTimestamp(item['Tanggal'])}'),
+                                              Text(
+                                                  'Supplier: ${item['Supplier']}'),
+                                            ],
+                                          ),
+                                        ),
                                       ),
                                     ),
                                   ),

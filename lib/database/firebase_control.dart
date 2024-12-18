@@ -7,7 +7,7 @@ class Firebase_penjualan {
       FirebaseFirestore.instance.collection('dbpembelian');
 
   Future<void> addPenjualan(String customer, DateTime tanggal, String noPo,
-      String status, List<Map<String, dynamic>> items) async {
+      bool status, List<Map<String, dynamic>> items) async {
     try {
       await penjualan.add({
         'customer': customer,

@@ -1,6 +1,8 @@
 import 'package:bonjour/Model/customer_model.dart';
 import 'package:bonjour/Model/stock_model.dart';
+import 'package:bonjour/Model/supplier_model.dart';
 import 'package:bonjour/Modul/Customer/customer_controller.dart';
+import 'package:bonjour/Modul/Pembelian/searchbar.dart';
 import 'package:bonjour/Modul/Penjualan/inputform.dart';
 import 'package:bonjour/Modul/Penjualan/pemilihan_stock.dart';
 import 'package:bonjour/Modul/Penjualan/searchbar.dart';
@@ -32,9 +34,10 @@ class Inputpembelian extends StatefulWidget {
 }
 
 class inputPenjualan extends State<Inputpembelian> {
-  Customer? selectedCustomer;
+  Supplier? selectedSupplier;
   Stock? selectedStock;
   bool isppn = false;
+  bool status = false;
   DateTime? selectedDate = DateTime.now();
   final TextEditingController noBeli = TextEditingController();
   final TextEditingController hargaBarangController = TextEditingController();
@@ -109,11 +112,11 @@ class inputPenjualan extends State<Inputpembelian> {
                 ],
               ),
               const SizedBox(height: 10),
-              SearchableCustomerList(
-                selectedCustomer: selectedCustomer,
-                onChanged: (Customer? newValue) {
+              SearchableSupplierList(
+                selectedSupplier: selectedSupplier,
+                onChanged: (Supplier? newValue) {
                   setState(() {
-                    selectedCustomer = newValue;
+                    selectedSupplier = newValue;
                   });
                 },
               ),
@@ -256,7 +259,7 @@ class inputPenjualan extends State<Inputpembelian> {
               child: ElevatedButton(
                 onPressed: () {
                   if (selectedDate == null ||
-                      selectedCustomer == null ||
+                      selectedSupplier == null ||
                       items.isEmpty) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
@@ -278,7 +281,7 @@ class inputPenjualan extends State<Inputpembelian> {
                     }).toList();
 
                     Firebase_penjualan().addPembelian(
-                      selectedCustomer!.namaCustomer,
+                      selectedSupplier!.namaSupplier,
                       selectedDate!,
                       noBeli.text,
                       isppn.toString(),
@@ -297,7 +300,7 @@ class inputPenjualan extends State<Inputpembelian> {
                       isppn = false;
                       selectedDate = null;
                       items.clear();
-                      selectedCustomer = null; // Reset selected customer
+                      selectedSupplier = null; // Reset selected customer
                     });
 
                     Navigator.pop(context);
