@@ -63,6 +63,13 @@ class inputPenjualan extends State<InputPenjualan> {
       backgroundColor: Colors.white,
       drawer: MainDrawer(),
       appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            context.read<TextControllerProvider>().clearText();
+            Navigator.of(context).pop(); // Navigate back
+          },
+        ),
         backgroundColor: primaryColor,
         foregroundColor: Colors.white,
         title: const Text('Tambah Purchase Order'),

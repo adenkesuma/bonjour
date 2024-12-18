@@ -35,13 +35,14 @@ class Firebase_penjualan {
       return [];
     }
   }
-  Future<void> addPembelian(String customer, DateTime tanggal, String noPo,
+
+  Future<void> addPembelian(String customer, DateTime tanggal, String kodeBeli,
       String status, List<Map<String, dynamic>> items) async {
     try {
       await pembelian.add({
-        'customer': customer,
-        'tanggal': tanggal,
-        'no_po': noPo,
+        'Supplier': customer,
+        'Tanggal': tanggal,
+        'kodeBeli': kodeBeli,
         'status': status,
         'item': items, // Simpan langsung seluruh list
       });
@@ -65,5 +66,3 @@ class Firebase_penjualan {
     }
   }
 }
-  
-

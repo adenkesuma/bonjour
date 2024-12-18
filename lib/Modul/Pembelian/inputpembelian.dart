@@ -63,7 +63,13 @@ class inputPenjualan extends State<Inputpembelian> {
       backgroundColor: Colors.white,
       drawer: MainDrawer(),
       appBar: AppBar(
-      
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            context.read<TextControllerProvider>().clearText();
+            Navigator.of(context).pop(); // Navigate back
+          },
+        ),
         backgroundColor: primaryColor,
         foregroundColor: Colors.white,
         title: const Text('Tambah Purchase Order'),
@@ -196,13 +202,20 @@ class inputPenjualan extends State<Inputpembelian> {
               width: 200,
               child: ElevatedButton(
                 onPressed: () {
-                  if (namaBarangController.text.isEmpty ||
-                      jumlahBarangController.text.isEmpty ||
+                  if (jumlahBarangController.text.isEmpty ||
                       hargaBarangController.text.isEmpty) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                         content: Text(
                             'Semua field harus diisi sebelum menambah item'),
+                      ),
+                    );
+                    return; // Exit if validation fails
+                  } else if (namaBarangController.text.isEmpty) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(
+                            'Pilih sesuai dengan nama stok yang terdaftar'),
                       ),
                     );
                     return; // Exit if validation fails
@@ -264,14 +277,14 @@ class inputPenjualan extends State<Inputpembelian> {
                       };
                     }).toList();
 
-                    // Kirim ke Firebase
-                    Firebase_penjualan().addPenjualan(
+                    Firebase_penjualan().addPembelian(
                       selectedCustomer!.namaCustomer,
                       selectedDate!,
                       noBeli.text,
                       isppn.toString(),
                       itemData, // Tidak perlu membungkus dengan []
                     );
+
                     print(itemData);
 
                     ScaffoldMessenger.of(context).showSnackBar(

@@ -1,5 +1,5 @@
 import 'package:bonjour/Modul/Pembelian/inputpembelian.dart';
-import 'package:bonjour/Modul/Penjualan/input_penjualan.dart';
+import 'package:bonjour/Modul/Pembelian/showdialog_pembelian.dart';
 import 'package:bonjour/data.dart';
 import 'package:bonjour/database/firebase_control.dart';
 import 'package:bonjour/drawer.dart';
@@ -25,6 +25,36 @@ class _PenjualanViewState extends State<PembelianView> {
   String formatTimestamp(Timestamp timestamp) {
     DateTime dateTime = timestamp.toDate();
     return DateFormat('dd/MM/yyyy').format(dateTime);
+  }
+
+  void _showItemDialog(List<Map<String, dynamic>>? items) {
+    if (items == null || items.isEmpty) {
+      // Tampilkan pesan jika tidak ada item
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Tidak ada item untuk ditampilkan')),
+      );
+      return;
+    }
+    void editItem(Map<String, dynamic> item) {
+      print('Edit item: $item');
+      // Tambahkan logika pengeditan di sini
+    }
+
+    void deleteItem(Map<String, dynamic> item) {
+      print('Delete item: $item');
+      // Tambahkan logika penghapusan di sini
+    }
+
+    showDialog(
+      context: context,
+      builder: (context) {
+        return ItemDialog(
+          items: items,
+          onEdit: editItem,
+          onDelete: deleteItem,
+        );
+      },
+    );
   }
 
   Future<void> _loadPembelian() async {
@@ -77,9 +107,6 @@ class _PenjualanViewState extends State<PembelianView> {
               onPressed: () async {
                 await Get.to(Inputpembelian());
                 _loadPembelian();
-                // await Navigator.push(context,
-                //     MaterialPageRoute(builder: (context) => InputPenjualan()));
-                // _loadPembelian();
               },
               icon: Icon(Icons.add))
         ],
@@ -144,7 +171,6 @@ class _PenjualanViewState extends State<PembelianView> {
               ),
 
               // Search Bar
-              // Search Bar
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: Container(
@@ -162,7 +188,7 @@ class _PenjualanViewState extends State<PembelianView> {
                   child: TextField(
                     onChanged: _filterData, // Panggil fungsi filter
                     decoration: InputDecoration(
-                      hintText: 'Cari pembelian berdasarkan Kode  pembelian',
+                      hintText: 'Cari pembelian berdasarkan Kode pembelian',
                       prefixIcon: Icon(Icons.search),
                       border: InputBorder.none,
                       contentPadding: EdgeInsets.all(12),
@@ -175,7 +201,7 @@ class _PenjualanViewState extends State<PembelianView> {
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Container(
-                  height: 400,
+                  height: 500,
                   child: _isLoading
                       ? Center(child: CircularProgressIndicator())
                       : _filteredPembelian.isEmpty
@@ -184,24 +210,22 @@ class _PenjualanViewState extends State<PembelianView> {
                               itemCount: _filteredPembelian.length,
                               itemBuilder: (context, index) {
                                 final item = _filteredPembelian[index];
+
                                 String formattedDate =
                                     formatTimestamp(item['Tanggal']);
 
-                                return Padding(
-                                  padding: const EdgeInsets.only(bottom: 12.0),
-                                  child: Container(
-                                    width: double.infinity,
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(10),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.black.withOpacity(0.1),
-                                          blurRadius: 5,
-                                          offset: Offset(0, 2),
-                                        )
-                                      ],
-                                    ),
+                                return GestureDetector(
+                                  onTap: () {
+                                    print('item: ${item['item']}');
+                                    final List<Map<String, dynamic>> items =
+                                        (item['item'] as List<dynamic>)
+                                            .map((e) =>
+                                                Map<String, dynamic>.from(e))
+                                            .toList();
+
+                                    _showItemDialog(items);
+                                  },
+                                  child: Card(
                                     child: Padding(
                                       padding: const EdgeInsets.all(12.0),
                                       child: Column(
@@ -209,10 +233,11 @@ class _PenjualanViewState extends State<PembelianView> {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Text('No. PO: ${item['kodeBeli']}'),
-                                          Text('Tanggal: ${formattedDate}'),
+                                          Text(
+                                              'Tanggal: ${formatTimestamp(item['Tanggal'])}'),
                                           Text('Status: ${item['status']}'),
                                           Text('Supplier: ${item['Supplier']}'),
-                                          Text('Item Count: ${item['items']}'),
+                                          Text('Item Count: ${item['item']}'),
                                         ],
                                       ),
                                     ),
