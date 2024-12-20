@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-
 class CustomerView extends StatefulWidget {
   const CustomerView({super.key});
 
@@ -19,7 +18,7 @@ class CustomerView extends StatefulWidget {
 class _CustomerViewState extends State<CustomerView> {
   TextEditingController _search = TextEditingController();
 
-  void createCustomer () {
+  void createCustomer() {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => CreateCustomerView()),
@@ -42,23 +41,18 @@ class _CustomerViewState extends State<CustomerView> {
         children: [
           Container(
             decoration: BoxDecoration(
-              border: Border(
-                bottom: BorderSide(
-                  color: Colors.grey,
-                  width: 1
-                )
-              )
-            ),
+                border:
+                    Border(bottom: BorderSide(color: Colors.grey, width: 1))),
             padding: EdgeInsets.all(10),
             child: TextField(
-                controller: _search,
-                onChanged: (value) {},
-                decoration: InputDecoration(
-                  labelText: 'Search',
-                  border: OutlineInputBorder(),
-                  prefixIcon: Icon(Icons.search),
-                ),
+              controller: _search,
+              onChanged: (value) {},
+              decoration: InputDecoration(
+                labelText: 'Search',
+                border: OutlineInputBorder(),
+                prefixIcon: Icon(Icons.search),
               ),
+            ),
           ),
           Expanded(
             child: ListView.builder(
@@ -75,34 +69,45 @@ class _CustomerViewState extends State<CustomerView> {
                         children: [
                           Expanded(
                             child: IconButton(
-                              onPressed: () {
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (context) => EditCustomerView(customer: customer,),
-                                  ),
-                                );
-                              }, 
-                              icon: Icon(Icons.edit, color: Colors.blue,)
-                            ),
+                                onPressed: () {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (context) => EditCustomerView(
+                                        customer: customer,
+                                      ),
+                                    ),
+                                  );
+                                },
+                                icon: Icon(
+                                  Icons.edit,
+                                  color: Colors.blue,
+                                )),
                           ),
                           Expanded(
                             child: IconButton(
-                              onPressed: () {
-                                provCust.deleteCustomer(customer.kodeCustomer);
-                              }, 
-                              icon: Icon(Icons.delete, color: Colors.red,)
-                            ),
+                                onPressed: () {
+                                  provCust
+                                      .deleteCustomer(customer.kodeCustomer);
+                                },
+                                icon: Icon(
+                                  Icons.delete,
+                                  color: Colors.red,
+                                )),
                           ),
                         ],
                       ),
-                    ),                   ),
+                    ),
+                  ),
                 );
               },
             ),
           )
         ],
       ),
-      floatingActionButton: FloatingActBtn(action: () => createCustomer(), icon: Icons.add,),
+      floatingActionButton: FloatingActBtn(
+        action: () => createCustomer(),
+        icon: Icons.add,
+      ),
     );
   }
 }

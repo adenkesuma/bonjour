@@ -76,10 +76,15 @@ class _CreateCustomerViewState extends State<CreateCustomerView> {
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                provCust.addCustomer(Customer(kodeCustomer: kodeController.text, namaCustomer: namaController.text, email: emailController.text, alamat: alamatController.text, noTelp: noTelpController.text));
-                    Navigator.of(context).pushAndRemoveUntil(
-                        MaterialPageRoute(builder: (context) => CustomerView()),
-                        (Route<dynamic> route) => false);
+                provCust.addCustomer(Customer(
+                    kodeCustomer: kodeController.text,
+                    namaCustomer: namaController.text,
+                    email: emailController.text,
+                    alamat: alamatController.text,
+                    noTelp: noTelpController.text));
+                Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(builder: (context) => CustomerView()),
+                    (Route<dynamic> route) => false);
               },
               child: Text('Tambah Customer'),
             ),

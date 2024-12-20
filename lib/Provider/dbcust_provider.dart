@@ -12,22 +12,19 @@ class CustomerProvider with ChangeNotifier {
 
   List<Customer> get customerList => _customerList;
 
- 
-
   Future<void> initialize() async {
     await _CustomerDB.initialize();
     await fetchCustomer();
   }
 
   Future<void> fetchCustomer() async {
-    _customerList = await _CustomerDB.fetch(); 
+    _customerList = await _CustomerDB.fetch();
     notifyListeners();
   }
 
-
   Future<void> addCustomer(Customer cust) async {
     await _CustomerDB.insert(cust);
-    fetchCustomer(); 
+    fetchCustomer();
   }
 
   Future<void> updateCustomer(Customer cust) async {
@@ -37,6 +34,6 @@ class CustomerProvider with ChangeNotifier {
 
   Future<void> deleteCustomer(String kodeCust) async {
     await _CustomerDB.delete(kodeCust);
-    fetchCustomer(); 
+    fetchCustomer();
   }
 }

@@ -19,7 +19,7 @@ class _EditCustomerViewState extends State<EditCustomerView> {
   TextEditingController namaController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController alamatController = TextEditingController();
-  TextEditingController noTelpController = TextEditingController();  
+  TextEditingController noTelpController = TextEditingController();
   @override
   void initState() {
     super.initState();
@@ -117,10 +117,15 @@ class _EditCustomerViewState extends State<EditCustomerView> {
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                    provCust.updateCustomer(Customer(kodeCustomer: kodeController.text, namaCustomer: namaController.text, email: emailController.text, alamat: alamatController.text, noTelp: noTelpController.text));
-                    Navigator.of(context).pushAndRemoveUntil(
-                        MaterialPageRoute(builder: (context) => CustomerView()),
-                        (Route<dynamic> route) => false);
+                provCust.updateCustomer(Customer(
+                    kodeCustomer: kodeController.text,
+                    namaCustomer: namaController.text,
+                    email: emailController.text,
+                    alamat: alamatController.text,
+                    noTelp: noTelpController.text));
+                Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(builder: (context) => CustomerView()),
+                    (Route<dynamic> route) => false);
               },
               child: Text('Edit Customer'),
             ),

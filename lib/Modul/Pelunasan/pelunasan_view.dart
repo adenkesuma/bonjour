@@ -25,6 +25,7 @@ class _PelunasanViewState extends State<PelunasanView> {
     final pelunasanCtrl = Provider.of<PelunasanController>(context, listen: false);
     pelunasanCtrl.fetchData();
   }
+  
 
   @override
   Widget build(BuildContext context) {

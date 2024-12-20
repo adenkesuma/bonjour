@@ -28,7 +28,6 @@ class _SearchableSupplierListState extends State<SearchableSupplierList> {
     super.initState();
     // Initialize filteredSuppliers with all Suppliers
     filteredSuppliers = context.read<SupplierController>().filteredSupplier;
-
   }
 
   void filterSuppliers(String query) {
@@ -37,7 +36,7 @@ class _SearchableSupplierListState extends State<SearchableSupplierList> {
       filteredSuppliers = context.read<SupplierController>().filteredSupplier;
       isListVisible = false; // Hide the list when the query is empty
     } else {
-      filteredSuppliers =SupplierProvider.filteredSupplier
+      filteredSuppliers = SupplierProvider.filteredSupplier
           .where((supplier) =>
               supplier.namaSupplier.toLowerCase().contains(query.toLowerCase()))
           .toList();

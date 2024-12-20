@@ -29,20 +29,94 @@ class _PenjualanViewState extends State<PembelianView> {
 
   void _showItemDialog(List<Map<String, dynamic>>? items) {
     if (items == null || items.isEmpty) {
-      // Tampilkan pesan jika tidak ada item
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Tidak ada item untuk ditampilkan')),
       );
       return;
     }
+
     void editItem(Map<String, dynamic> item) {
       print('Edit item: $item');
       // Tambahkan logika pengeditan di sini
     }
 
-    void deleteItem(Map<String, dynamic> item) {
+    void deleteItem(Map<String, dynamic> item) async {
       print('Delete item: $item');
-      // Tambahkan logika penghapusan di sini
+
+      try {
+        String namaBarang = item['nama barang'];
+        print('Nama Barang: $namaBarang');
+
+        // Ambil semua dokumen dari koleksi dbpembelian
+        QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+            .collection('dbpembelian')
+            .get(); // Mengambil seluruh koleksi tanpa filter
+
+        if (querySnapshot.docs.isNotEmpty) {
+          for (var docSnapshot in querySnapshot.docs) {
+            List<dynamic> items =
+                docSnapshot['item']; // Ambil list item dari dokumen
+
+            // Debugging: Menampilkan isi dari list items sebelum diubah
+            print('Items di dokumen sebelum diubah: $items');
+
+            // Cek jika item ada dalam list dan nama barang sesuai
+            bool itemFound = false;
+            for (var mapItem in items) {
+              if (mapItem['nama barang'] == namaBarang) {
+                // Hapus item yang sesuai dengan nama barang
+                items.remove(mapItem);
+                itemFound = true;
+                _loadPembelian();
+                break;
+              }
+            }
+
+            if (itemFound) {
+              // Update dokumen jika item ditemukan dan dihapus
+              await FirebaseFirestore.instance
+                  .collection('dbpembelian')
+                  .doc(docSnapshot.id) // Mendapatkan ID dokumen
+                  .update({
+                'item':
+                    items, // Update array 'item' dengan array yang sudah diubah
+              });
+
+              // Jika tidak ada item tersisa, hapus dokumen PO
+              if (items.isEmpty) {
+                await FirebaseFirestore.instance
+                    .collection('dbpembelian')
+                    .doc(docSnapshot.id)
+                    .delete(); // Hapus dokumen PO
+                _loadPembelian();
+                print(
+                    'Dokumen PO dengan kode Beli ${docSnapshot['kodeBeli']} telah dihapus');
+              }
+
+              // Hapus item dari list lokal
+
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text('Item berhasil dihapus dari Firestore')),
+              );
+              return; // Hentikan loop jika item sudah dihapus
+            }
+          }
+
+          // Jika item tidak ditemukan di semua dokumen
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Item tidak ditemukan di Firestore')),
+          );
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Tidak ada dokumen di Firestore')),
+          );
+        }
+      } catch (e) {
+        print('Error deleting item: $e');
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Gagal menghapus item')),
+        );
+      }
     }
 
     showDialog(
@@ -88,9 +162,12 @@ class _PenjualanViewState extends State<PembelianView> {
     });
   }
 
+ 
+
   @override
   void initState() {
     super.initState();
+    
     _loadPembelian();
   }
 
@@ -210,9 +287,6 @@ class _PenjualanViewState extends State<PembelianView> {
                               itemCount: _filteredPembelian.length,
                               itemBuilder: (context, index) {
                                 final item = _filteredPembelian[index];
-
-                                String formattedDate =
-                                    formatTimestamp(item['Tanggal']);
 
                                 return Padding(
                                   padding: const EdgeInsets.all(12.0),

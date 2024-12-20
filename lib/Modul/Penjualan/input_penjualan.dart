@@ -294,10 +294,6 @@ class inputPenjualan extends State<InputPenjualan> {
                     );
                     print(itemData);
 
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('Data berhasil disimpan')),
-                    );
-
                     // Reset form
                     setState(() {
                       noPoController.clear();

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ItemDialog extends StatelessWidget {
-  final List<dynamic> items;
+  final List<Map<String, dynamic>> items;
   final Function(Map<String, dynamic>) onEdit;
   final Function(Map<String, dynamic>) onDelete;
 
@@ -21,11 +21,13 @@ class ItemDialog extends StatelessWidget {
         child: ListView.builder(
           itemCount: items.length,
           itemBuilder: (context, index) {
-            final item = items[index] as Map<String, dynamic>; // Pastikan tipe Map
+            final item = items[index]; // Pastikan tipe Map
 
             return ListTile(
-              title: Text(item['nama barang'] ?? 'Tidak ada nama'), // Menampilkan nama barang
-              subtitle: Text('Jumlah: ${item['jumlah barang'] ?? 0}'), // Menampilkan jumlah barang
+              title: Text(item['nama barang'] ??
+                  'Tidak ada nama'), // Menampilkan nama barang
+              subtitle: Text(
+                  'Jumlah: ${item['jumlah barang'] ?? 0}'), // Menampilkan jumlah barang
               trailing: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
