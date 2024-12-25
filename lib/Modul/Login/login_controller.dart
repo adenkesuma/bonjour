@@ -17,11 +17,11 @@ class LoginController with ChangeNotifier{
   bool obscure = true;
   User user = User();
 
-  List acc = [
-    ['EXE','FIN','MAR','PUR','INV'],
-    ['EXECUTIVE','FINANCE','MARKETING','PURCHASING','INVENTORY'],
-    ['123','456','123','456','123']
-  ];
+  // List acc = [
+  //   ['EXE','FIN','MAR','PUR','INV'],
+  //   ['EXECUTIVE','FINANCE','MARKETING','PURCHASING','INVENTORY'],
+  //   ['123','456','123','456','123']
+  // ];
 
   void login() async {
     if (username.text.trim() == "") {

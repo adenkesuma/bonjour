@@ -14,10 +14,27 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:awesome_notifications/awesome_notifications.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+
+  AwesomeNotifications().initialize(
+    null, 
+    [
+      NotificationChannel(
+        channelKey: 'basic_channel',
+        channelName: 'Notifikasi Dasar',
+        channelDescription: 'Notifikasi untuk tugas berat',
+        defaultColor: Colors.blue,
+        importance: NotificationImportance.High,
+        ledColor: Colors.white,
+      ),
+    ],
+  );
+
   runApp(
     MultiProvider(
       providers: [

@@ -24,6 +24,8 @@ dependencies:
   cloud_firestore:
   art_sweetalert:
   intl:
+  awesome_notifications:
+
 
 dev_dependencies:
   flutter_test:

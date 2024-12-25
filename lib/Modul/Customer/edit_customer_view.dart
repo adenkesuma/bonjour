@@ -1,136 +1,196 @@
+import 'package:art_sweetalert/art_sweetalert.dart';
 import 'package:bonjour/Model/customer_model.dart';
-import 'package:bonjour/Modul/Customer/customer_view.dart';
-import 'package:bonjour/Provider/dbcust_provider.dart';
+import 'package:bonjour/Modul/Customer/customer_controller.dart';
 import 'package:bonjour/data.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 class EditCustomerView extends StatefulWidget {
   final Customer customer;
 
-  const EditCustomerView({required this.customer});
+  const EditCustomerView({Key? key, required this.customer});
 
   @override
-  State<EditCustomerView> createState() => _EditCustomerViewState();
+  _EditCustomerViewState createState() => _EditCustomerViewState();
 }
 
 class _EditCustomerViewState extends State<EditCustomerView> {
-  TextEditingController kodeController = TextEditingController();
-  TextEditingController namaController = TextEditingController();
-  TextEditingController emailController = TextEditingController();
-  TextEditingController alamatController = TextEditingController();
-  TextEditingController noTelpController = TextEditingController();
+  late TextEditingController _kodeCustomerController;
+  late TextEditingController _namaCustomerController;
+  late TextEditingController _alamatController;
+  late TextEditingController _emailController;
+  late TextEditingController _notelpController;
+
   @override
   void initState() {
     super.initState();
-    kodeController.text = widget.customer.kodeCustomer;
-    namaController.text = widget.customer.namaCustomer;
-    emailController.text = widget.customer.email ?? "";
-    alamatController.text = widget.customer.alamat ?? "";
-    noTelpController.text = widget.customer.noTelp ?? "";
+    _kodeCustomerController = TextEditingController(text: widget.customer.kodeCustomer);
+    _namaCustomerController = TextEditingController(text: widget.customer.namaCustomer);
+    _alamatController = TextEditingController(text: widget.customer.alamat);
+    _emailController = TextEditingController(text: widget.customer.email);
+    _notelpController = TextEditingController(text: widget.customer.noTelp);
+  }
+
+  @override
+  void dispose() {
+    _kodeCustomerController.dispose();
+    _namaCustomerController.dispose();
+    _alamatController.dispose();
+    _emailController.dispose();
+    _notelpController.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    final provCust = Provider.of<CustomerProvider>(context);
+    final customerCtrl = Provider.of<CustomerController>(context);
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: primaryColor,
         title: Text('Edit Customer'),
+        backgroundColor: primaryColor,
         foregroundColor: Colors.white,
         centerTitle: true,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            TextField(
-              readOnly: true,
-              controller: kodeController,
-              decoration: InputDecoration(
-                labelText: 'Kode Customer',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12.0),
-                  borderSide: BorderSide(
-                    color: Colors.grey.shade400,
-                    width: 1.0,
+      body: Stack(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                TextField(
+                  decoration: InputDecoration(
+                    contentPadding: EdgeInsets.symmetric(horizontal: 10,vertical: 5),
+                    labelText: 'Kode Customer',
+                    labelStyle: TextStyle(
+                      color: Colors.grey[700],
+                      fontWeight: FontWeight.bold,
+                    ),
+                    filled: true,
+                    fillColor: Colors.grey[200],
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                      borderSide: BorderSide(
+                        color: Colors.grey[400]!,
+                        width: 1.0,
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                      borderSide: BorderSide(
+                        color: Colors.grey[500]!,
+                        width: 1.5,
+                      ),
+                    ),
+                  ),
+                  controller: _kodeCustomerController,
+                  readOnly: true,
+                  style: TextStyle(
+                    color: Colors.grey[600],
                   ),
                 ),
-                filled: true,
-                fillColor: Colors.grey.shade200,
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12.0),
-                  borderSide: BorderSide(
-                    color: Colors.grey.shade400,
-                    width: 1.0,
+                SizedBox(height: 10),
+                TextField(
+                  controller: _namaCustomerController,
+                  decoration: InputDecoration(
+                    labelText: 'Nama Customer',
+                    border: OutlineInputBorder(),
                   ),
                 ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12.0),
-                  borderSide: BorderSide(
-                    color: Colors.grey.shade400,
-                    width: 2.0,
+                SizedBox(height: 10),
+                TextField(
+                  controller: _alamatController,
+                  decoration: InputDecoration(
+                    labelText: 'Alamat',
+                    border: OutlineInputBorder(),
                   ),
                 ),
-                labelStyle: TextStyle(
-                  color: Colors.grey.shade600,
+                SizedBox(height: 10),
+                TextField(
+                  controller: _emailController,
+                  decoration: InputDecoration(
+                    labelText: 'Email',
+                    border: OutlineInputBorder(),
+                  ),
                 ),
-                hintStyle: TextStyle(
-                  color: Colors.grey.shade400,
+                SizedBox(height: 10),
+                TextField(
+                  controller: _notelpController,
+                  decoration: InputDecoration(
+                    labelText: 'No Telp',
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+                SizedBox(height: 20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ElevatedButton.icon(
+                      onPressed: () async {
+                        setState(() {
+                          customerCtrl.processing = true;
+                        });
+                        Customer updatedCustomer = Customer(
+                          kodeCustomer: _kodeCustomerController.text,
+                          namaCustomer: _namaCustomerController.text,
+                          alamat: _alamatController.text,
+                          email: _emailController.text,
+                          noTelp: _notelpController.text,
+                          docId: widget.customer.docId
+                        );
+                        customerCtrl.updateCustomer(updatedCustomer).then((value) => {
+                          if (value) {
+                            ArtSweetAlert.show(
+                              context: context,
+                              artDialogArgs: ArtDialogArgs(
+                                type: ArtSweetAlertType.success,
+                                title: "Update Customer Successful",
+                                confirmButtonColor: Color.fromARGB(255, 3, 192, 0),
+                                onConfirm: () {
+                                  Get.back();
+                                  Get.back();
+                                },
+                              ),
+                            ),
+                          }
+                        });
+                      },
+                      icon: Icon(Icons.save),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: primaryColor,
+                        foregroundColor: Colors.white,
+                      ),
+                      label: Text('Save'),
+                    ),
+                    SizedBox(width: 20),
+                    ElevatedButton.icon(
+                      onPressed: () {
+                        Get.back();
+                      },
+                      icon: Icon(Icons.cancel),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.red,
+                        foregroundColor: Colors.white,
+                      ),
+                      label: Text('Cancel'),
+                    ),
+                    SizedBox(width: 20),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          if (customerCtrl.processing)
+            Positioned.fill(
+              child: Container(
+                color: Colors.black.withOpacity(0.4),
+                child: Center(
+                  child: CircularProgressIndicator(),
                 ),
               ),
             ),
-            SizedBox(height: 10),
-            TextField(
-              controller: namaController,
-              decoration: InputDecoration(
-                labelText: 'Nama',
-                border: OutlineInputBorder(),
-              ),
-            ),
-            SizedBox(height: 10),
-            TextField(
-              controller: emailController,
-              decoration: InputDecoration(
-                labelText: 'Email',
-                border: OutlineInputBorder(),
-              ),
-              keyboardType: TextInputType.emailAddress,
-            ),
-            SizedBox(height: 10),
-            TextField(
-              controller: alamatController,
-              decoration: InputDecoration(
-                labelText: 'Alamat',
-                border: OutlineInputBorder(),
-              ),
-            ),
-            SizedBox(height: 10),
-            TextField(
-              controller: noTelpController,
-              decoration: InputDecoration(
-                labelText: 'No. Telepon',
-                border: OutlineInputBorder(),
-              ),
-              keyboardType: TextInputType.phone,
-            ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                provCust.updateCustomer(Customer(
-                    kodeCustomer: kodeController.text,
-                    namaCustomer: namaController.text,
-                    email: emailController.text,
-                    alamat: alamatController.text,
-                    noTelp: noTelpController.text));
-                Navigator.of(context).pushAndRemoveUntil(
-                    MaterialPageRoute(builder: (context) => CustomerView()),
-                    (Route<dynamic> route) => false);
-              },
-              child: Text('Edit Customer'),
-            ),
-          ],
-        ),
+        ],
       ),
     );
   }

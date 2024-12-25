@@ -4,6 +4,8 @@ class Customer {
   String? email;
   String? alamat;
   String? noTelp;
+  String? docId;
+
 
   Customer({
     required this.kodeCustomer, 
@@ -11,25 +13,27 @@ class Customer {
     this.email, 
     this.alamat, 
     this.noTelp, 
+    this.docId
 });
 
   factory Customer.fromJson(Map<String, dynamic> json) {
     return Customer(
-      kodeCustomer: json['kodeCustomer'] as String, 
-      namaCustomer: json['namaCustomer'] as String,
-      email: json['email'] as String,
-      alamat: json['alamat'] as String,
-      noTelp: json['noTelp'] as String,      
+      kodeCustomer: json['KODE_CUSTOMER'] as String, 
+      namaCustomer: json['NAMA_CUSTOMER'] as String,
+      email: json['EMAIL'] as String,
+      alamat: json['ALAMAT'] as String,
+      noTelp: json['NOTELP'] as String, 
+      docId: json['docId'] ?? "" as String,
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'kodeCustomer': kodeCustomer,
-      'namaCustomer': namaCustomer,
-      'email': email,      
-      'alamat': alamat,
-      'noTelp': noTelp,
+      'KODE_CUSTOMER': kodeCustomer,
+      'NAMA_CUSTOMER': namaCustomer,
+      'EMAIL': email,      
+      'ALAMAT': alamat,
+      'NOTELP': noTelp,
     };
   }
 }

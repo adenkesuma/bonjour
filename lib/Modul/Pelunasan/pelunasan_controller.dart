@@ -1,7 +1,11 @@
+import 'dart:math';
+
 import 'package:bonjour/Model/gudang_model.dart';
 import 'package:bonjour/Model/penjualan_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:awesome_notifications/awesome_notifications.dart';
+
 
 class PelunasanController with ChangeNotifier{
   final CollectionReference dbpenjualan = FirebaseFirestore.instance.collection('dbpenjualan');
@@ -12,6 +16,17 @@ class PelunasanController with ChangeNotifier{
   bool fetching = false;
   bool processing = false;
  
+  void tampilkanNotifikasi(String judul, String isi) {
+    AwesomeNotifications().createNotification(
+      content: NotificationContent(
+        id: Random().nextInt(1000), 
+        channelKey: 'basic_channel',
+        title: judul,
+        body: isi,
+      ),
+    );
+  }
+
   Future<void> fetchData() async {
     try {
       QuerySnapshot querySnapshot = await dbpenjualan.get();
@@ -41,6 +56,7 @@ class PelunasanController with ChangeNotifier{
         'no_po': no_po,
         'date': DateTime.now(),
       });
+      tampilkanNotifikasi("Pelunasan", "Pelunasan ${no_po} berhasil");
       await fetchData();
       processing = false;
       notifyListeners();
