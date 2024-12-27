@@ -17,7 +17,6 @@ class GudangController with ChangeNotifier{
           .map((doc) => Gudang.fromJson({...doc.data() as Map<String, dynamic>, "docId": doc.id}))
           .toList();
       filteredGudang = List.from(dataGudang);
-      print(filteredGudang);
       notifyListeners();
     } catch (e) {
       print("Error : $e");

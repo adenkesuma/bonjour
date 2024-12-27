@@ -11,7 +11,15 @@ class Gudang {
     this.alamat, 
     this.kepalaGudang, 
     this.docId
-});
+  });
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    return other is Gudang && other.kodeGudang == kodeGudang;
+  }
+
+  @override
+  int get hashCode => kodeGudang.hashCode;
 
   factory Gudang.fromJson(Map<String, dynamic> json) {
     return Gudang(

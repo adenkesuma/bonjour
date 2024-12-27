@@ -32,12 +32,12 @@ class StockController with ChangeNotifier {
           posmin = 1;
         }
          for (var stock in dataStock) {
-          if (stock.kodeStock == element['kode_stock']) {
+          if (stock.kodeStock == element['kode barang']) {
             // Ensure per-location map is initialized
             stock.perloc ??= {};
 
             // Update the stock for the specific location
-            String location = element['kode_gudang']; // Replace with the actual location key
+            String location = element['kode lokasi']; // Replace with the actual location key
             stock.perloc![location] = (stock.perloc![location] ?? 0) +
                 (posmin! * (element['qty'] ?? 0));
 
@@ -56,6 +56,23 @@ class StockController with ChangeNotifier {
       print("Error : $e");
     }
     
+  }
+
+  Future<Stock> getStock(String kodeStock) async {
+    try {
+      QuerySnapshot querySnapshot = await dbstock
+          .where('KODE_STOCK', isEqualTo: kodeStock)
+          .limit(1)
+          .get();
+      if (querySnapshot.docs.isNotEmpty) {
+        var stockData = querySnapshot.docs.first.data() as Map<String, dynamic>;
+        return Stock.fromJson(stockData);
+      } else {
+        throw Exception('stock not found');
+      }
+    } catch (e) {
+      throw Exception('Error fetching stock: $e');
+    }
   }
 
   void filterStocks(String query) {

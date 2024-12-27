@@ -26,6 +26,23 @@ class CustomerController with ChangeNotifier {
     }
   }
 
+  Future<Customer> getCustomer(String kodeCust) async {
+    try {
+      QuerySnapshot querySnapshot = await dbcustomer
+          .where('KODE_CUSTOMER', isEqualTo: kodeCust)
+          .limit(1)
+          .get();
+      if (querySnapshot.docs.isNotEmpty) {
+        var customerData = querySnapshot.docs.first.data() as Map<String, dynamic>;
+        return Customer.fromJson(customerData);
+      } else {
+        throw Exception('Customer not found');
+      }
+    } catch (e) {
+      throw Exception('Error fetching customer: $e');
+    }
+  }
+
   void filterCustomer(String query) {
     if (query.isEmpty) {
       filteredCustomer = List.from(dataCustomer);

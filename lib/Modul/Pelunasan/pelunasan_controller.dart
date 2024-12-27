@@ -11,8 +11,8 @@ class PelunasanController with ChangeNotifier{
   final CollectionReference dbpenjualan = FirebaseFirestore.instance.collection('dbpenjualan');
   final CollectionReference dbpelunasan = FirebaseFirestore.instance.collection('dbpelunasan');
 
-  List<PenjualanBayar> dataPenjualan = [];
-  List<PenjualanBayar> filteredPenjualan = [];
+  List<Penjualan> dataPenjualan = [];
+  List<Penjualan> filteredPenjualan = [];
   bool fetching = false;
   bool processing = false;
  
@@ -31,7 +31,7 @@ class PelunasanController with ChangeNotifier{
     try {
       QuerySnapshot querySnapshot = await dbpenjualan.get();
       dataPenjualan = querySnapshot.docs
-        .map((doc) => PenjualanBayar.fromJson({
+        .map((doc) => Penjualan.fromJson({
               ...doc.data() as Map<String, dynamic>,
               "docId": doc.id,
             }))

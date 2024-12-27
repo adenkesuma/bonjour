@@ -26,6 +26,23 @@ class SupplierController with ChangeNotifier {
     }
   }
 
+  Future<Supplier> getSupplier(String kodeSup) async {
+    try {
+      QuerySnapshot querySnapshot = await dbsupplier
+          .where('KODE_SUPPLIER', isEqualTo: kodeSup)
+          .limit(1)
+          .get();
+      if (querySnapshot.docs.isNotEmpty) {
+        var supplierData = querySnapshot.docs.first.data() as Map<String, dynamic>;
+        return Supplier.fromJson(supplierData);
+      } else {
+        throw Exception('supplier not found');
+      }
+    } catch (e) {
+      throw Exception('Error fetching supplier: $e');
+    }
+  }
+
   void filterSupplier(String query) {
     if (query.isEmpty) {
       filteredSupplier = List.from(dataSupplier);
