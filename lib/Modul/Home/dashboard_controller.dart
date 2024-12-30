@@ -29,12 +29,14 @@ class DashboardController with ChangeNotifier {
 
       for (var element in queryTrans.docs) {
         var data = element.data() as Map<String, dynamic>;
-        DateTime transDate = (data['tanggal'] as Timestamp).toDate();
-        double totalInvoice = (data['jumlah'] as num).toDouble();
-        int difference = now.difference(transDate).inDays;
-        if (difference >= 0 && difference < 7) {
-          String day = DateFormat('EEE').format(transDate);
-          salesData[day] = (salesData[day] ?? 0) + totalInvoice;
+        if (data['type'] == "SALES") {
+          DateTime transDate = (data['tanggal'] as Timestamp).toDate();
+          double totalInvoice = (data['jumlah'] as num).toDouble();
+          int difference = now.difference(transDate).inDays;
+          if (difference >= 0 && difference < 7) {
+            String day = DateFormat('EEE').format(transDate);
+            salesData[day] = (salesData[day] ?? 0) + totalInvoice;
+          }
         }
       }
       data = salesData;
