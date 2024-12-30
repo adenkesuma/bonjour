@@ -25,6 +25,7 @@ dependencies:
   art_sweetalert:
   intl:
   awesome_notifications:
+  fl_chart:
 
 
 dev_dependencies:
