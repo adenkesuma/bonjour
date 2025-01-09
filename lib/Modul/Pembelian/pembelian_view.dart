@@ -122,7 +122,7 @@ class _PembelianViewState extends State<PembelianView> {
                                                     context: context,
                                                     artDialogArgs: ArtDialogArgs(
                                                       type: ArtSweetAlertType.success,
-                                                      title: "Delete Sales Successful",
+                                                      title: "Delete Pembelian Successful",
                                                       confirmButtonColor: Color.fromARGB(255, 3, 192, 0),
                                                     )
                                                   )
@@ -130,7 +130,7 @@ class _PembelianViewState extends State<PembelianView> {
                                                     context: context,
                                                     artDialogArgs: ArtDialogArgs(
                                                       type: ArtSweetAlertType.warning,
-                                                      title: "Delete Sales Failed",
+                                                      title: "Delete Pembelian Failed",
                                                       confirmButtonColor: Color.fromARGB(255, 3, 192, 0),
                                                     )
                                                   )

@@ -30,6 +30,10 @@ class StockController with ChangeNotifier {
           posmin = -1;
         } else if (element['type']=="PURCHASES") {
           posmin = 1;
+        } else if (element['type']=="PEMINDAHAN IN") {
+          posmin = 1;
+        } else if (element['type']=="PEMINDAHAN OUT") {
+          posmin = -1;
         }
          for (var stock in dataStock) {
           if (stock.kodeStock == element['kode barang']) {

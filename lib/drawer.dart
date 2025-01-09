@@ -4,6 +4,7 @@ import 'package:bonjour/Modul/Home/dashboard_view.dart';
 import 'package:bonjour/Modul/Login/login_controller.dart';
 import 'package:bonjour/Modul/Pelunasan/pelunasan_view.dart';
 import 'package:bonjour/Modul/Pembelian/pembelian_view.dart';
+import 'package:bonjour/Modul/Pemindahan/pemindahan_view.dart';
 import 'package:bonjour/Modul/Penjualan/penjualan_view.dart';
 import 'package:bonjour/Modul/Stock/stock_view.dart';
 import 'package:bonjour/Modul/Supplier/supplier_view.dart';
@@ -225,6 +226,15 @@ class _MainDrawerState extends State<MainDrawer> {
                         onTap: () {
                           analytic.navigatorEvent("Pembelian");
                           Get.offAll(PembelianView());
+                        },
+                      ),
+                      if (loginCtrl.user.module!.contains("PEMINDAHAN"))
+                      ListTile(
+                        leading: Icon(Icons.receipt_long, color: primaryColor),
+                        title: Text(AppLocalizations.of(context)!.pemindahan),
+                        onTap: () {
+                          analytic.navigatorEvent("Pemindahan");
+                          Get.offAll(PemindahanView());
                         },
                       ),
                     ],

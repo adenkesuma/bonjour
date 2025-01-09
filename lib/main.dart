@@ -5,6 +5,7 @@ import 'package:bonjour/Modul/Login/login_controller.dart';
 import 'package:bonjour/Modul/Login/splash_view.dart';
 import 'package:bonjour/Modul/Pelunasan/pelunasan_controller.dart';
 import 'package:bonjour/Modul/Pembelian/pembelian_controller.dart';
+import 'package:bonjour/Modul/Pemindahan/pemindahan_controller.dart';
 import 'package:bonjour/Modul/Penjualan/penjualan_controller.dart';
 import 'package:bonjour/Modul/Stock/stock_controller.dart';
 import 'package:bonjour/Modul/Supplier/supplier_controller.dart';
@@ -45,6 +46,7 @@ void main() async {
         ChangeNotifierProvider(create: (context) => DashboardController()),
         ChangeNotifierProvider(create: (context) => PenjualanController()),
         ChangeNotifierProvider(create: (context) => PembelianController()),
+        ChangeNotifierProvider(create: (context) => PemindahanController()),
         ChangeNotifierProvider(create: (context) => GudangController()),
         ChangeNotifierProvider(create: (context) => PelunasanController()),
         ChangeNotifierProvider(create: (context) => SupplierController()),

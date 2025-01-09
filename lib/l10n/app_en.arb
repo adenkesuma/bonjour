@@ -8,6 +8,7 @@
   "transaksi": "Transactions",
   "penjualan": "Sales",
   "pembelian": "Purchases",
+  "pemindahan": "Assembly",
   "pelunasan": "Payments",
   "settings": "Settings",
   "user": "User",

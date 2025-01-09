@@ -23,6 +23,23 @@ class GudangController with ChangeNotifier{
     }
   }
 
+  Future<Gudang> getGudang(String kodeGudang) async {
+    try {
+      QuerySnapshot querySnapshot = await dbgudang
+          .where('KODE_GUDANG', isEqualTo: kodeGudang)
+          .limit(1)
+          .get();
+      if (querySnapshot.docs.isNotEmpty) {
+        var gudangData = querySnapshot.docs.first.data() as Map<String, dynamic>;
+        return Gudang.fromJson(gudangData);
+      } else {
+        throw Exception('Gudang not found');
+      }
+    } catch (e) {
+      throw Exception('Error fetching gudang: $e');
+    }
+  }
+
   void filterGudangs(String query) {
     if (query.isEmpty) {
       filteredGudang = List.from(dataGudang);
