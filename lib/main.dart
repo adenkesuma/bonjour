@@ -18,10 +18,13 @@ import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  MobileAds.instance.initialize().then((InitializationStatus status) {});
+
   await Firebase.initializeApp();
 
   AwesomeNotifications().initialize(

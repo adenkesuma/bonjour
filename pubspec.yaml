@@ -19,6 +19,7 @@ dependencies:
   firebase_analytics:
   firebase_core:
   firebase_ui_auth:
+  google_mobile_ads: 
   firebase_auth:
   image_picker:
   cloud_firestore:
