@@ -236,7 +236,7 @@ class _CreateStockViewState extends State<CreateStockView> {
                             }
                           });
                         }, 
-                        icon: Icon(Icons.save),
+                        icon: Icon(Icons.save, color: Colors.white),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: primaryColor,
                           foregroundColor: Colors.white
@@ -248,7 +248,7 @@ class _CreateStockViewState extends State<CreateStockView> {
                         onPressed: () async {
                           Get.back();
                         }, 
-                        icon: Icon(Icons.cancel),
+                        icon: Icon(Icons.cancel, color: Colors.white),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.red,
                           foregroundColor: Colors.white

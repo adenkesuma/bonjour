@@ -587,7 +587,7 @@ class _EditPenjualanViewState extends State<EditPenjualanView> {
                           });
                           }
                         }, 
-                        icon: Icon(Icons.save),
+                        icon: Icon(Icons.save, color: Colors.white),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: primaryColor,
                           foregroundColor: Colors.white
@@ -599,7 +599,7 @@ class _EditPenjualanViewState extends State<EditPenjualanView> {
                         onPressed: () {
                           Get.back();
                         }, 
-                        icon: Icon(Icons.cancel),
+                        icon: Icon(Icons.cancel, color: Colors.white),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.red,
                           foregroundColor: Colors.white

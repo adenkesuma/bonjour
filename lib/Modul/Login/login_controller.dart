@@ -32,7 +32,7 @@ class LoginController with ChangeNotifier{
       return;
     };
 
-    User? result = await CloudFirebase().loginAcc(username.text, password.text);
+    User? result = await CloudFirebase().loginAcc(username.text.toUpperCase(), password.text);
     if (result!=null) {
       result.pass = "";
       user = result;

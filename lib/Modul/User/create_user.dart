@@ -152,7 +152,7 @@ class _CreateUserState extends State<CreateUser> {
                         );
                       }
                     },
-                    icon: Icon(Icons.save),
+                    icon: Icon(Icons.save, color: Colors.white),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: primaryColor,
                         foregroundColor: Colors.white
@@ -164,7 +164,7 @@ class _CreateUserState extends State<CreateUser> {
                     onPressed: () async {
                       Get.back();
                     }, 
-                    icon: Icon(Icons.cancel),
+                    icon: Icon(Icons.cancel, color: Colors.white),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.red,
                       foregroundColor: Colors.white

@@ -1,4 +1,5 @@
 import 'package:bonjour/Modul/Home/dashboard_controller.dart';
+import 'package:bonjour/Modul/Login/login_controller.dart';
 import 'package:bonjour/data.dart';
 import 'package:bonjour/drawer.dart';
 import 'package:flutter/material.dart';
@@ -30,8 +31,6 @@ class _DashboardViewState extends State<DashboardView> {
   late List<String> dayOrder;
   late BannerAd _bannerAd;
   bool _isBannerAdLoaded = false;
-  bool isPremium = false;
-
 
   @override
   void initState() {
@@ -56,7 +55,8 @@ class _DashboardViewState extends State<DashboardView> {
 
   void _loadBannerAd() {
     _bannerAd = BannerAd(
-      adUnitId: 'ca-app-pub-2333701761148479/5457916243', // Test Banner Ad Unit ID
+      // adUnitId: 'ca-app-pub-2333701761148479/2245429545', // Test Banner Ad Unit ID
+      adUnitId: 'ca-app-pub-3940256099942544/6300978111', // Test Banner Ad Unit ID
       size: AdSize.banner,
       request: AdRequest(),
       listener: BannerAdListener(
@@ -87,6 +87,7 @@ class _DashboardViewState extends State<DashboardView> {
 
   @override
   Widget build(BuildContext context) {
+    final loginCtrl = Provider.of<LoginController>(context, listen: false);
     List<BarChartGroupData> salesData = List.generate(dayOrder.length, (index) {
       String day = dayOrder[index];
       return BarChartGroupData(
@@ -201,7 +202,7 @@ class _DashboardViewState extends State<DashboardView> {
               ),
             ),
           ),
-          if (_isBannerAdLoaded && !isPremium)
+          if (_isBannerAdLoaded && !loginCtrl.user.module!.contains("PREMIUM"))
             Align(
               alignment: Alignment.bottomCenter,
               child: Container(

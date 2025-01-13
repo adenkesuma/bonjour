@@ -266,16 +266,6 @@ class _MainDrawerState extends State<MainDrawer> {
                           Get.offAll(UserView());
                         },
                       ),
-                      ListTile(
-                        leading: Icon(
-                          Icons.receipt_long,
-                          color: primaryColor,
-                        ),
-                        title: Text(AppLocalizations.of(context)!.setting2),
-                        onTap: () {
-                          // Get.offAll();
-                        },
-                      ),
                     ],
                   ),
                   ListTile(
